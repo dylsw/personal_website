@@ -1,18 +1,12 @@
 import { Hero } from '@/components/hero';
+import { About } from '@/components/about';
 
 export default function Home() {
   return (
     <main>
       <Hero />
 
-      <section
-        id="about"
-        className="flex min-h-screen items-center justify-center"
-      >
-        <h2 className="text-4xl font-semibold text-zinc-900">
-          About Me
-        </h2>
-      </section>
+      <About />
 
       <section
         id="experience"

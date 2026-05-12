@@ -26,7 +26,12 @@ export const heroPhotos = [
 // ─── About ────────────────────────────────────────────────────────────────────
 
 export const about = {
-  summary: "",
+  image: { src: "/about/first.jpg", alt: "Dylan" },
+  paragraphs: [
+    "Turns out if you spend enough time in _engineering_, _data science_, and _analytics_, someone eventually hands you a product and says 'figure it out'. That someone was me, and I genuinely **love** the part of the job where you get to connect dots others haven't connected yet.",
+    "Off the clock, I collect new experiences the same way. Usually by planning my next trip somewhere I've never been, eating something I can't pronounce, or convincing myself a new hobby is totally a good idea.",
+    "I thrive on new environments, new people, and the occasional mild discomfort of figuring things out from scratch.",
+  ],
 };
 
 // ─── Experience ───────────────────────────────────────────────────────────────
