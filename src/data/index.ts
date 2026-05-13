@@ -2,7 +2,7 @@
 
 export const personal = {
   name: "Dylan",
-  title: "A *product manager* passionate about bridging design and data",
+  title: "A product manager passionate about bridging design and data",
   bio: [
     "Outside of work, I **love** to travel.",
     "Here are a few pics from my latest trip to the Alps.",
@@ -37,13 +37,115 @@ export const about = {
 // ─── Experience ───────────────────────────────────────────────────────────────
 
 export type Experience = {
-  company: string;
   role: string;
+  company: string;
   period: string;
+  logo: string;
+  flavour: string;
   description: string;
+  bullets: string[];
+  tags: string[];
 };
 
-export const experiences: Experience[] = [];
+export const experiences: Experience[] = [
+  {
+    role: "Product Manager",
+    company: "Shopee",
+    period: "Aug 2025 – Present",
+    logo: "/logos/logo_shopee.jpg",
+    flavour:
+      "Owning cart & checkout for millions of daily active users across 10+ markets.",
+    description:
+      "Product Manager for Marketplace Order Conversion, Cart and Checkout.",
+    bullets: [
+      "Spearheaded Cart and Checkout strategy across 10+ markets, directly contributing to a **10% uplift** in checkout conversion rate through targeted UX and flow optimizations.",
+      "Led **5+ major regional product launches** end-to-end, partnering with engineering, design and marketing to deliver on-time, scalable feature rollouts.",
+      "Notable key projects listed in projects section below.",
+    ],
+    tags: ["Product Thinking", "SDLC", "Stakeholder Management"],
+  },
+  {
+    role: "Data Product Manager",
+    company: "Shopee",
+    period: "Jan 2025 – Aug 2025",
+    logo: "/logos/logo_shopee.jpg",
+    flavour:
+      "Managing data pipelines that power Shopee's product & analytics teams.",
+    description: "Data Product Manager for Marketplace, Data Products Team.",
+    bullets: [
+      "Owned **4 fundamental Data Marts** (User, Notification, Voucher, Promotion) serving 20+ downstream analytics teams, enabling structured, reliable data pipelines consumed by 50+ local BI teams.",
+      "Conducted 10+ impact assessments, collaborating with engineers to reduce data mart query latency by **~20%**, saving an estimated 200 compute-hours per month.",
+      "Produced and maintained comprehensive documentation and user guides, cutting stakeholder onboarding time by over **40%** and reducing repeated support queries by more than half.",
+    ],
+    tags: ["Data Warehousing", "Data Analysis", "Stakeholder Management"],
+  },
+  {
+    role: "Business Analyst",
+    company: "GovTech",
+    period: "May 2024 – Nov 2024",
+    logo: "/logos/logo_govtech.png",
+    flavour:
+      "Running analytics and AI models for the government's speech-to-text platform.",
+    description:
+      "Business Analyst for Transcribe, a speech-to-text productivity platform for government officers.",
+    bullets: [
+      "Built ETL pipelines, processing **500K+ metadata records monthly** into KPI dashboards using Python and Streamlit, enabling real-time visibility for ~10 senior stakeholders.",
+      "Developed Prophet and Random Forest forecasting models, achieving **~88% accuracy** on 6-week user trend forecasts, directly informing infrastructure scaling decisions and reducing peak-load incidents by 36%.",
+      "Created Isolation Forest anomaly detection models, identifying log irregularities across 1M+ daily events, flagging **3 critical security vulnerabilities** within the first 2 months of deployment.",
+      "Represented Transcribe at 2 major government events (Digital Government Exchange 24 & Enterprise SG Innofest), conducting live product showcases to 200+ attendees and generating 10+ qualified leads.",
+    ],
+    tags: ["Python", "Performance Dashboards", "Machine Learning"],
+  },
+  {
+    role: "Software Engineer",
+    company: "Oneberry",
+    period: "May 2023 – Nov 2023",
+    logo: "/logos/logo_oneberry.jpg",
+    flavour: "Developing client apps and chatbots for robot security systems.",
+    description:
+      "Full-Stack software developer for client web applications running on robot security systems.",
+    bullets: [
+      "Led frontend development for **3+ client-facing web applications** using React and Next.js, improving UI responsiveness and load times by ~25% through component optimisation.",
+      "Managed backend systems in Node.js and Python integrated with AWS and Google Cloud, supporting scalable deployments serving hundreds of concurrent users.",
+      "Containerised applications using Docker, reducing environment inconsistency issues across dev and production.",
+      "Built **RAG-powered chatbots** using HuggingFace open-source models and OpenAI Whisper for speech-to-text, cutting average user query resolution time by ~40% compared to manual document search.",
+    ],
+    tags: ["React/Next", "Python", "AWS", "Docker"],
+  },
+  {
+    role: "Final Year Project",
+    company: "IMDA",
+    period: "Jan 2024 – May 2024",
+    logo: "/logos/logo_imda.png",
+    flavour:
+      "Building a RAG chatbot installed within Slack workspaces from scratch.",
+    description:
+      "Semester-long RAG chatbot project as part of the college's FYP (Final Year Project).",
+    bullets: [
+      "Architected and deployed a **RAG chatbot on Slack** for IMDA, processing and categorising 500+ topic-level news articles per week via automated web scraping pipelines.",
+      "Implemented a hybrid Neo4j graph database + vector store retrieval system, improving context relevance by **~30%** over baseline embedding-only retrieval.",
+      "Evaluated and iterated on model performance using RAGAS metrics, achieving a faithfulness score of **~0.85** and answer relevancy of ~0.88 across benchmark queries.",
+      "Delivered the project to a panel of IMDA stakeholders, with the chatbot adopted for internal knowledge management use post-project.",
+    ],
+    tags: ["Slack API", "RAG", "AI Evaluation"],
+  },
+  {
+    role: "Business Analyst",
+    company: "Sony",
+    period: "May 2022 – Nov 2022",
+    logo: "/logos/logo_sony.png",
+    flavour:
+      "Analyzing retail data and generating SEA market reports for sales planning.",
+    description:
+      "Business Analyst intern for SEA Retail and Sales Planning teams.",
+    bullets: [
+      "Automated retail data monitoring across SEA markets using Excel, Power BI dashboards, and VBA scripts, reducing manual reporting effort by **~60%** and cutting weekly turnaround from 2 days to under 4 hours.",
+      "Produced and presented marketing performance reports for the SEA Retail and Sales Planning teams, surfacing insights that directly informed quarterly promotional strategy across 6 markets.",
+      "Developed a Telegram Bot using Flask, Google Cloud Console, and Firebase to automate inventory update notifications, eliminating **~5 hours** of manual weekly updates.",
+    ],
+    tags: ["Excel VBA", "Python", "Reporting & Analysis"],
+  },
+];
 
 // ─── Projects ─────────────────────────────────────────────────────────────────
 
