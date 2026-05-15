@@ -1,19 +1,19 @@
 'use client';
 
 import Image from 'next/image';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { heroPhotos, personal } from '@/data';
 import { renderRichText } from '@/lib/rich-text';
 
 const STRIP = [...heroPhotos, ...heroPhotos];
 
 const PLACEHOLDER_COLORS = [
-  'from-violet-500/20 to-indigo-500/20',
-  'from-rose-500/20 to-pink-500/20',
-  'from-amber-500/20 to-orange-500/20',
-  'from-emerald-500/20 to-teal-500/20',
-  'from-sky-500/20 to-blue-500/20',
-  'from-fuchsia-500/20 to-purple-500/20',
+  'from-violet-500/30 to-indigo-500/30',
+  'from-rose-500/30 to-pink-500/30',
+  'from-amber-500/30 to-orange-500/30',
+  'from-emerald-500/30 to-teal-500/30',
+  'from-sky-500/30 to-blue-500/30',
+  'from-fuchsia-500/30 to-purple-500/30',
 ];
 
 function PhotoCard({ src, alt, index }: { src: string; alt: string; index: number }) {
@@ -38,12 +38,53 @@ function PhotoCard({ src, alt, index }: { src: string; alt: string; index: numbe
 
 export function Hero() {
   const trackRef = useRef<HTMLDivElement>(null);
+  const [typedText, setTypedText] = useState('');
+  const [typingDone, setTypingDone] = useState(false);
+  const [curtainOpen, setCurtainOpen] = useState(false);
 
   const pause  = () => { if (trackRef.current) trackRef.current.style.animationPlayState = 'paused';  };
   const resume = () => { if (trackRef.current) trackRef.current.style.animationPlayState = 'running'; };
 
-  // 8 seconds per photo — adjust in src/data/index.ts by changing heroPhotos.length
   const duration = `${heroPhotos.length * 8}s`;
+
+  // Increment to replay the typing sequence (used on bfcache restore)
+  const [animKey, setAnimKey] = useState(0);
+
+  // Replay animation when the page is restored from the back-forward cache
+  useEffect(() => {
+    const handler = (e: PageTransitionEvent) => {
+      if (e.persisted) setAnimKey((k) => k + 1);
+    };
+    window.addEventListener('pageshow', handler);
+    return () => window.removeEventListener('pageshow', handler);
+  }, []);
+
+  // Typewriter — reruns whenever animKey changes
+  useEffect(() => {
+    const text = personal.greeting;
+    let i = 0;
+    const resetId = setTimeout(() => {
+      setTypedText('');
+      setTypingDone(false);
+      setCurtainOpen(false);
+    }, 0);
+    const id = setInterval(() => {
+      i++;
+      setTypedText(text.slice(0, i));
+      if (i >= text.length) {
+        clearInterval(id);
+        setTypingDone(true);
+      }
+    }, 50);
+    return () => { clearTimeout(resetId); clearInterval(id); };
+  }, [animKey]);
+
+  // Curtain opens shortly after typing finishes
+  useEffect(() => {
+    if (!typingDone) return;
+    const t = setTimeout(() => setCurtainOpen(true), 150);
+    return () => clearTimeout(t);
+  }, [typingDone]);
 
   return (
     <section
@@ -52,35 +93,88 @@ export function Hero() {
     >
       {/* Text */}
       <div className="flex max-w-xl flex-col items-center gap-3 px-6 text-center">
-        <h1 className="text-5xl font-bold tracking-tight text-zinc-900 sm:text-6xl">
-          I&apos;m {personal.name}
+        <h1 className="text-5xl font-bold tracking-tight text-zinc-100 sm:text-6xl">
+          {typedText}
+          {/* Blinking cursor — fades out after typing */}
+          <span
+            className="ml-0.5 inline-block w-[2px] align-middle bg-zinc-300"
+            style={{
+              height: '0.85em',
+              animation: typingDone ? 'none' : 'cursor-blink 700ms ease-in-out infinite',
+              opacity: typingDone ? 0 : 1,
+              transition: typingDone ? 'opacity 300ms ease 400ms' : 'none',
+            }}
+          />
         </h1>
-        <p className="text-lg font-medium text-zinc-500">
+
+        {/* Title — fades up once typing is done */}
+        <p
+          className="text-lg font-medium text-zinc-400"
+          style={{
+            opacity: typingDone ? 1 : 0,
+            transform: typingDone ? 'translateY(0px)' : 'translateY(12px)',
+            transition: 'opacity 450ms ease, transform 450ms ease',
+          }}
+        >
           {personal.title}
         </p>
+
+        {/* Bio lines — staggered after title */}
         {personal.bio.map((line, i) => (
-          <p key={i} className="text-base leading-relaxed text-zinc-500">
+          <p
+            key={i}
+            className="text-base leading-relaxed text-zinc-400"
+            style={{
+              opacity: typingDone ? 1 : 0,
+              transform: typingDone ? 'translateY(0px)' : 'translateY(12px)',
+              transition: `opacity 450ms ease ${(i + 1) * 120}ms, transform 450ms ease ${(i + 1) * 120}ms`,
+            }}
+          >
             {renderRichText(line)}
           </p>
         ))}
       </div>
 
-      {/* Photo strip */}
+      {/* Photo strip with curtain reveal */}
       <div
-        className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent_0%,black_12%,black_88%,transparent_100%)]"
-        onMouseEnter={pause}
-        onMouseLeave={resume}
-        onTouchStart={pause}
-        onTouchEnd={resume}
+        className="relative w-full overflow-hidden"
+        style={{
+          opacity: curtainOpen ? 1 : 0,
+          transition: curtainOpen ? 'opacity 500ms ease' : 'none',
+        }}
       >
+        {/* Left curtain */}
         <div
-          ref={trackRef}
-          className="flex gap-3 sm:gap-4"
-          style={{ width: 'max-content', animation: `marquee ${duration} linear infinite` }}
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 bg-gradient-to-r from-[#07070f] to-transparent"
+          style={{
+            width: curtainOpen ? '8%' : '52%',
+            transition: 'width 700ms cubic-bezier(0.4, 0, 0.2, 1)',
+          }}
+        />
+        {/* Right curtain */}
+        <div
+          className="pointer-events-none absolute inset-y-0 right-0 z-10 bg-gradient-to-l from-[#07070f] to-transparent"
+          style={{
+            width: curtainOpen ? '8%' : '52%',
+            transition: 'width 700ms cubic-bezier(0.4, 0, 0.2, 1)',
+          }}
+        />
+
+        <div
+          onMouseEnter={pause}
+          onMouseLeave={resume}
+          onTouchStart={pause}
+          onTouchEnd={resume}
         >
-          {STRIP.map((photo, i) => (
-            <PhotoCard key={i} index={i} {...photo} />
-          ))}
+          <div
+            ref={trackRef}
+            className="flex gap-3 sm:gap-4"
+            style={{ width: 'max-content', animation: `marquee ${duration} linear infinite` }}
+          >
+            {STRIP.map((photo, i) => (
+              <PhotoCard key={i} index={i} {...photo} />
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -2,6 +2,7 @@
 
 export const personal = {
   name: "Dylan",
+  greeting: "Hi, I'm Dylan",
   title: "A product manager passionate about bridging design and data",
   bio: [
     "Outside of work, I **love** to travel.",
@@ -99,7 +100,7 @@ export const experiences: Experience[] = [
   {
     role: "Software Engineer",
     company: "Oneberry",
-    period: "May 2023 – Nov 2023",
+    period: "Jan 2024 – May 20243",
     logo: "/logos/logo_oneberry.jpg",
     flavour: "Developing client apps and chatbots for robot security systems.",
     description:
@@ -149,15 +150,74 @@ export const experiences: Experience[] = [
 
 // ─── Projects ─────────────────────────────────────────────────────────────────
 
+export type ProjectCategory = "work" | "personal";
+
 export type Project = {
-  title: string;
+  name: string;
+  flavour: string;
   description: string;
+  bullets: string[];
   tags: string[];
-  url?: string;
+  image?: string;
+  href?: string;
   repo?: string;
 };
 
-export const projects: Project[] = [];
+export const projects: Record<ProjectCategory, Project[]> = {
+  work: [
+    {
+      name: "Teleconsultation",
+      flavour: "A short flavour text shown when the card is collapsed.",
+      description:
+        "A short description of what this project does and the impact it had.",
+      bullets: [
+        "Bullet point one about this project.",
+        "Bullet point two about this project.",
+        "Bullet point two about this project.",
+        "Bullet point two about this project.",
+        "Bullet point two about this project.",
+        "Bullet point two about this project.",
+      ],
+      tags: ["React", "TypeScript", "AWS"],
+    },
+    {
+      name: "Adjacent Market Expansion",
+      flavour: "A short flavour text shown when the card is collapsed.",
+      description:
+        "A short description of what this project does and the impact it had.",
+      bullets: [
+        "Bullet point one about this project.",
+        "Bullet point two about this project.",
+      ],
+      tags: ["React", "TypeScript", "AWS"],
+    },
+    {
+      name: "Adjacent Market Expansion 2",
+      flavour: "A short flavour text shown when the card is collapsed.",
+      description:
+        "A short description of what this project does and the impact it had.",
+      bullets: [
+        "Bullet point one about this project.",
+        "Bullet point two about this project.",
+      ],
+      tags: ["React", "TypeScript", "AWS"],
+    },
+  ],
+  personal: [
+    {
+      name: "SeepDeek for StrAIght Up! Hackathon",
+      flavour: "A short flavour text shown when the card is collapsed.",
+      description:
+        "A short description of what this project does and the tech behind it.",
+      bullets: [
+        "Bullet point one about this project.",
+        "Bullet point two about this project.",
+      ],
+      href: "https://github.com",
+      tags: ["Next.js", "PostgreSQL"],
+    },
+  ],
+};
 
 // ─── Hobbies ──────────────────────────────────────────────────────────────────
 

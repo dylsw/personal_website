@@ -35,6 +35,25 @@ export function Navbar() {
   const itemRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 
   useEffect(() => {
+    // Disable browser scroll restoration so back-navigation always lands at the
+    // top of the page — otherwise restored scroll position puts elements in the
+    // viewport before React can paint their hidden state, skipping the animation.
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+    const onPageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) {
+        // bfcache restore: force a full reload so state is truly fresh
+        window.location.reload();
+      } else {
+        // Fresh load (including back-nav without bfcache): start from top
+        window.scrollTo(0, 0);
+      }
+    };
+    window.addEventListener("pageshow", onPageShow);
+    return () => window.removeEventListener("pageshow", onPageShow);
+  }, []);
+
+  useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -46,9 +65,7 @@ export function Navbar() {
       const el = document.getElementById(id);
       if (!el) return;
       const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) setActiveSection(id);
-        },
+        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
         { rootMargin: "-10% 0px -55% 0px" },
       );
       observer.observe(el);
@@ -68,7 +85,6 @@ export function Navbar() {
 
   useEffect(() => {
     updateIndicator();
-
     const nav = navRef.current;
     if (!nav) return;
     const ro = new ResizeObserver(() => updateIndicator());
@@ -90,28 +106,26 @@ export function Navbar() {
         ref={navRef}
         className={`relative flex w-full items-center gap-0 rounded-full border px-1.5 py-1 shadow-lg backdrop-blur-md transition-all duration-300 sm:gap-0.5 sm:px-2 sm:py-1.5 ${
           scrolled
-            ? "border-black/10 bg-white/90 shadow-black/10"
-            : "border-black/8 bg-white/60 shadow-black/5"
+            ? "border-white/10 bg-zinc-950/90 shadow-black/40"
+            : "border-white/8 bg-zinc-950/70 shadow-black/30"
         }`}
       >
         {/* Sliding active indicator */}
         <div
           ref={indicatorRef}
-          className="absolute inset-y-1 rounded-full bg-zinc-900 opacity-0 transition-all duration-300 ease-out"
+          className="absolute inset-y-1 rounded-full bg-white/15 opacity-0 transition-all duration-300 ease-out"
           style={{ left: 0, width: 0 }}
         />
 
         {NAV_ITEMS.map(({ id, label, short }) => (
           <button
             key={id}
-            ref={(el) => {
-              itemRefs.current[id] = el;
-            }}
+            ref={(el) => { itemRefs.current[id] = el; }}
             onClick={() => scrollTo(id)}
             className={`relative z-10 cursor-pointer rounded-full px-2.5 py-1 text-xs font-medium transition-colors duration-200 sm:px-4 sm:py-1.5 sm:text-sm ${
               activeSection === id
                 ? "text-white"
-                : "text-zinc-500 hover:text-zinc-900"
+                : "text-zinc-400 hover:text-zinc-100"
             }`}
           >
             <span className="sm:hidden">{short}</span>
@@ -119,14 +133,14 @@ export function Navbar() {
           </button>
         ))}
 
-        <div className="mx-1 h-3.5 w-px bg-zinc-200 sm:mx-1.5 sm:h-4" />
+        <div className="mx-1 h-3.5 w-px bg-white/15 sm:mx-1.5 sm:h-4" />
 
         <a
           href={personal.social.github}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="GitHub"
-          className="relative z-10 rounded-full p-1.5 text-zinc-500 transition-colors hover:text-zinc-900 sm:p-2 text-zinc-500 hover:text-zinc-900"
+          className="relative z-10 rounded-full p-1.5 text-zinc-400 transition-colors hover:text-zinc-100 sm:p-2"
         >
           <GitHubIcon size={13} />
         </a>
@@ -135,7 +149,7 @@ export function Navbar() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="LinkedIn"
-          className="relative z-10 rounded-full p-1.5 text-zinc-500 transition-colors hover:text-zinc-900 sm:p-2 text-zinc-500 hover:text-zinc-900"
+          className="relative z-10 rounded-full p-1.5 text-zinc-400 transition-colors hover:text-zinc-100 sm:p-2"
         >
           <LinkedInIcon size={13} />
         </a>
