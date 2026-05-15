@@ -145,17 +145,17 @@ export function Hero() {
       >
         {/* Left curtain */}
         <div
-          className="pointer-events-none absolute inset-y-0 left-0 z-10 bg-gradient-to-r from-[#07070f] to-transparent"
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 bg-gradient-to-r from-[#07070f]/80 to-transparent"
           style={{
-            width: curtainOpen ? '8%' : '52%',
+            width: curtainOpen ? '14%' : '52%',
             transition: 'width 700ms cubic-bezier(0.4, 0, 0.2, 1)',
           }}
         />
         {/* Right curtain */}
         <div
-          className="pointer-events-none absolute inset-y-0 right-0 z-10 bg-gradient-to-l from-[#07070f] to-transparent"
+          className="pointer-events-none absolute inset-y-0 right-0 z-10 bg-gradient-to-l from-[#07070f]/80 to-transparent"
           style={{
-            width: curtainOpen ? '8%' : '52%',
+            width: curtainOpen ? '14%' : '52%',
             transition: 'width 700ms cubic-bezier(0.4, 0, 0.2, 1)',
           }}
         />

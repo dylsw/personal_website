@@ -221,7 +221,34 @@ export const projects: Record<ProjectCategory, Project[]> = {
 
 // ─── Hobbies ──────────────────────────────────────────────────────────────────
 
-export const hobbies: string[] = [];
+export type GameEntry     = { title: string; cover?: string; platform?: string };
+export type TravelEntry   = { location: string; image?: string; caption: string };
+export type KeyboardEntry = { name: string; image?: string; switches?: string; layout?: string };
+
+export const hobbies: {
+  gaming: GameEntry[];
+  travel: TravelEntry[];
+  keyboards: KeyboardEntry[];
+} = {
+  gaming: [
+    { title: "Elden Ring",        platform: "PS5" },
+    { title: "Baldur's Gate 3",   platform: "PC"  },
+    { title: "Hollow Knight",     platform: "PC"  },
+    { title: "Dark Souls III",    platform: "PC"  },
+    { title: "God of War",        platform: "PS5" },
+    { title: "Hades",             platform: "PC"  },
+  ],
+  travel: [
+    { location: "Zermatt",      image: "/hero/zermatt.jpg",      caption: "july '24" },
+    { location: "Grindelwald",  image: "/hero/grindelwald.jpg",  caption: "july '24" },
+    { location: "Kandersteg",   image: "/hero/kandersteg.jpg",   caption: "july '24" },
+  ],
+  keyboards: [
+    { name: "Drop CTRL",   switches: "Gateron Yellow",  layout: "TKL" },
+    { name: "KBD75v3",     switches: "Holy Pandas",     layout: "75%" },
+    { name: "Mode Envoy",  switches: "Boba U4T",        layout: "65%" },
+  ],
+};
 
 // ─── Contact ──────────────────────────────────────────────────────────────────
 
