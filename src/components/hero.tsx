@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useRef, useState, useEffect } from 'react';
 import { heroPhotos, personal } from '@/data';
+import { introDone } from '@/lib/intro-state';
 import { renderRichText } from '@/lib/rich-text';
 
 const STRIP = [...heroPhotos, ...heroPhotos];
@@ -59,24 +60,39 @@ export function Hero() {
     return () => window.removeEventListener('pageshow', handler);
   }, []);
 
-  // Typewriter — reruns whenever animKey changes
+  // Typewriter — waits for intro-done event on first load, then reruns on animKey changes
   useEffect(() => {
     const text = personal.greeting;
-    let i = 0;
-    const resetId = setTimeout(() => {
+    let id: ReturnType<typeof setInterval>;
+
+    setTimeout(() => {
       setTypedText('');
       setTypingDone(false);
       setCurtainOpen(false);
     }, 0);
-    const id = setInterval(() => {
-      i++;
-      setTypedText(text.slice(0, i));
-      if (i >= text.length) {
-        clearInterval(id);
-        setTypingDone(true);
-      }
-    }, 50);
-    return () => { clearTimeout(resetId); clearInterval(id); };
+
+    const startTyping = () => {
+      let i = 0;
+      id = setInterval(() => {
+        i++;
+        setTypedText(text.slice(0, i));
+        if (i >= text.length) {
+          clearInterval(id);
+          setTypingDone(true);
+        }
+      }, 50);
+    };
+
+    if (introDone) {
+      startTyping();
+    } else {
+      window.addEventListener('intro-done', startTyping, { once: true });
+    }
+
+    return () => {
+      clearInterval(id);
+      window.removeEventListener('intro-done', startTyping);
+    };
   }, [animKey]);
 
   // Curtain opens shortly after typing finishes

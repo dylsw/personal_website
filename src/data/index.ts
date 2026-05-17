@@ -2,7 +2,8 @@
 
 export const personal = {
   name: "Dylan",
-  greeting: "Hi, I'm Dylan",
+  loading: "Hello there",
+  greeting: "I'm Dylan",
   title: "A product manager passionate about bridging design and data",
   bio: [
     "Outside of work, I **love** to travel.",
