@@ -30,6 +30,12 @@ const NAV_ITEMS = [
 export function Navbar() {
   const [activeSection, setActiveSection] = useState<string>("");
   const [scrolled, setScrolled] = useState(false);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setVisible(true), 200);
+    return () => clearTimeout(t);
+  }, []);
   const navRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<Record<string, HTMLButtonElement | null>>({});
@@ -40,44 +46,41 @@ export function Navbar() {
     // viewport before React can paint their hidden state, skipping the animation.
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
-    const onPageShow = (e: PageTransitionEvent) => {
-      if (e.persisted) {
-        // bfcache restore: force a full reload so state is truly fresh
-        window.location.reload();
-      } else {
-        // Fresh load (including back-nav without bfcache): start from top
-        window.scrollTo(0, 0);
-      }
+    const onPageShow = () => {
+      // Always land at the top — each component restarts its own animation
+      window.scrollTo(0, 0);
     };
     window.addEventListener("pageshow", onPageShow);
     return () => window.removeEventListener("pageshow", onPageShow);
   }, []);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    const update = () => {
+      setScrolled(window.scrollY > 60);
 
-  useEffect(() => {
-    const observers: IntersectionObserver[] = [];
-    NAV_ITEMS.forEach(({ id }) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const observer = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
-        { rootMargin: "-10% 0px -55% 0px" },
-      );
-      observer.observe(el);
-      observers.push(observer);
-    });
-    return () => observers.forEach((o) => o.disconnect());
+      // Find the last section whose top has crossed 35% from the viewport top.
+      // This is purely positional, so it can never get stuck between events.
+      const trigger = window.scrollY + window.innerHeight * 0.35;
+      let current = "";
+      for (const { id } of NAV_ITEMS) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const top = el.getBoundingClientRect().top + window.scrollY;
+        if (top <= trigger) current = id;
+      }
+      setActiveSection(current);
+    };
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
   }, []);
 
   const updateIndicator = useCallback(() => {
     const activeEl = itemRefs.current[activeSection];
     const indicator = indicatorRef.current;
-    if (!activeEl || !indicator) return;
+    if (!indicator) return;
+    if (!activeEl) { indicator.style.opacity = "0"; return; }
     indicator.style.width = `${activeEl.offsetWidth}px`;
     indicator.style.left = `${activeEl.offsetLeft}px`;
     indicator.style.opacity = "1";
@@ -98,9 +101,14 @@ export function Navbar() {
 
   return (
     <div
-      className={`fixed left-1/2 z-50 w-[calc(100%-2rem)] max-w-fit -translate-x-1/2 transition-all duration-300 ease-out ${
+      className={`fixed left-1/2 z-50 w-[calc(100%-2rem)] max-w-fit transition-all duration-300 ease-out ${
         scrolled ? "top-3" : "top-5"
       }`}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: `translateX(-50%) translateY(${visible ? '0px' : '-14px'})`,
+        transition: 'opacity 400ms ease, transform 400ms ease',
+      }}
     >
       <div
         ref={navRef}

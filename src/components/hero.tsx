@@ -95,15 +95,9 @@ export function Hero() {
       <div className="flex max-w-xl flex-col items-center gap-3 px-6 text-center">
         <h1 className="text-5xl font-bold tracking-tight text-zinc-100 sm:text-6xl">
           {typedText}
-          {/* Blinking cursor — fades out after typing */}
           <span
             className="ml-0.5 inline-block w-[2px] align-middle bg-zinc-300"
-            style={{
-              height: '0.85em',
-              animation: typingDone ? 'none' : 'cursor-blink 700ms ease-in-out infinite',
-              opacity: typingDone ? 0 : 1,
-              transition: typingDone ? 'opacity 300ms ease 400ms' : 'none',
-            }}
+            style={{ height: '0.85em', animation: 'cursor-blink 1000ms ease-in-out infinite' }}
           />
         </h1>
 
@@ -141,24 +135,10 @@ export function Hero() {
         style={{
           opacity: curtainOpen ? 1 : 0,
           transition: curtainOpen ? 'opacity 500ms ease' : 'none',
+          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)',
+          maskImage: 'linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)',
         }}
       >
-        {/* Left curtain */}
-        <div
-          className="pointer-events-none absolute inset-y-0 left-0 z-10 bg-gradient-to-r from-[#07070f]/80 to-transparent"
-          style={{
-            width: curtainOpen ? '14%' : '52%',
-            transition: 'width 700ms cubic-bezier(0.4, 0, 0.2, 1)',
-          }}
-        />
-        {/* Right curtain */}
-        <div
-          className="pointer-events-none absolute inset-y-0 right-0 z-10 bg-gradient-to-l from-[#07070f]/80 to-transparent"
-          style={{
-            width: curtainOpen ? '14%' : '52%',
-            transition: 'width 700ms cubic-bezier(0.4, 0, 0.2, 1)',
-          }}
-        />
 
         <div
           onMouseEnter={pause}

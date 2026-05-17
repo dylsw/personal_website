@@ -135,41 +135,30 @@ function ShelfRow({ label, children, extraPadY = 0 }: { label: string; children:
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const maskImage = [
+    canLeft  ? 'transparent 0%, black 8%' : 'black 0%',
+    canRight ? 'black 92%, transparent 100%' : 'black 100%',
+  ].join(', ');
+
   return (
     <div>
       <p className="mb-3 pl-6 text-xs font-semibold uppercase tracking-widest text-zinc-500">
         {label}
       </p>
 
-      <div className="relative">
-        {/* Left fade */}
-        <div
-          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-14 bg-gradient-to-r from-[#0c0c14]/35 to-transparent transition-opacity duration-300"
-          style={{
-            opacity: canLeft ? 1 : 0,
-            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 22%, black 72%, transparent 100%)',
-            maskImage: 'linear-gradient(to bottom, transparent 0%, black 22%, black 72%, transparent 100%)',
-          }}
-        />
-        {/* Right fade */}
-        <div
-          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-14 bg-gradient-to-l from-[#0c0c14]/35 to-transparent transition-opacity duration-300"
-          style={{
-            opacity: canRight ? 1 : 0,
-            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 22%, black 72%, transparent 100%)',
-            maskImage: 'linear-gradient(to bottom, transparent 0%, black 22%, black 72%, transparent 100%)',
-          }}
-        />
-
-        <div
-          ref={scrollRef}
-          onScroll={updateFades}
-          className="overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          style={{ paddingTop: `${extraPadY}px`, paddingBottom: `${extraPadY + 4}px` }}
-        >
-          <div className="flex w-max gap-4 px-6">
-            {children}
-          </div>
+      <div
+        ref={scrollRef}
+        onScroll={updateFades}
+        className="overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        style={{
+          paddingTop: `${extraPadY}px`,
+          paddingBottom: `${extraPadY + 4}px`,
+          WebkitMaskImage: `linear-gradient(to right, ${maskImage})`,
+          maskImage: `linear-gradient(to right, ${maskImage})`,
+        }}
+      >
+        <div className="flex w-max gap-4 px-6">
+          {children}
         </div>
       </div>
 
@@ -187,7 +176,7 @@ export function Hobbies() {
 
   return (
     <section id="hobbies" className="py-24">
-      <div className="mx-auto max-w-5xl px-6">
+      <div className="mx-auto max-w-3xl px-6">
         <h2
           ref={headingRef as React.RefObject<HTMLHeadingElement>}
           className="mb-10 text-3xl font-bold tracking-tight text-zinc-100"

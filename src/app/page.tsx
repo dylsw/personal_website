@@ -3,6 +3,8 @@ import { About } from '@/components/about';
 import { Experience } from '@/components/experience';
 import { Projects } from '@/components/projects';
 import { Hobbies } from '@/components/hobbies';
+import { Contact } from '@/components/contact';
+import { Footer } from '@/components/footer';
 
 export default function Home() {
   return (
@@ -17,14 +19,8 @@ export default function Home() {
 
       <Hobbies />
 
-      <section
-        id="contact"
-        className="flex min-h-screen items-center justify-center"
-      >
-        <h2 className="text-4xl font-semibold text-zinc-100">
-          Contact Me
-        </h2>
-      </section>
+      <Contact />
+      <Footer />
     </main>
   );
 }

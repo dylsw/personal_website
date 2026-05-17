@@ -5,11 +5,10 @@ import { useRef, useState, useCallback, useEffect } from 'react';
 import { projects, type Project, type ProjectCategory } from '@/data';
 import { useInView } from '@/lib/use-in-view';
 
-type Tab = 'all' | ProjectCategory;
+type Tab = ProjectCategory;
 type TaggedProject = { project: Project; category: ProjectCategory };
 
 const TABS: { id: Tab; label: string }[] = [
-  { id: 'all', label: 'All' },
   { id: 'work', label: 'Work' },
   { id: 'personal', label: 'Personal & Hackathon' },
 ];
@@ -173,7 +172,6 @@ function Carousel({ items }: { items: TaggedProject[] }) {
   const [flippedName, setFlippedName] = useState<string | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [navigating, setNavigating] = useState(false);
-  const scrollEndTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const updateState = useCallback(() => {
     const el = scrollRef.current;
@@ -193,11 +191,23 @@ function Carousel({ items }: { items: TaggedProject[] }) {
     return () => clearTimeout(id);
   }, [items, updateState]);
 
+  // Zoom back in reliably when snap settles (scrollend fires after snap animation completes)
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const onScrollEnd = () => { updateState(); setNavigating(false); };
+    el.addEventListener('scrollend', onScrollEnd);
+    return () => el.removeEventListener('scrollend', onScrollEnd);
+  }, [updateState]);
+
   const handleScroll = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
     updateState();
-    setNavigating(true);
-    if (scrollEndTimer.current) clearTimeout(scrollEndTimer.current);
-    scrollEndTimer.current = setTimeout(() => setNavigating(false), 150);
+    // Stay zoomed out while between snap points; zoom in only when aligned
+    const rem = el.scrollLeft % el.clientWidth;
+    const isAligned = rem < 4 || rem > el.clientWidth - 4;
+    setNavigating(!isAligned);
   }, [updateState]);
 
   const scrollTo = (dir: 'left' | 'right') => {
@@ -257,22 +267,35 @@ const ALL_PROJECTS: TaggedProject[] = [
   ...projects.personal.map((p) => ({ project: p, category: 'personal' as const })),
 ];
 
+const TAB_ORDER: Tab[] = ['work', 'personal'];
+
 export function Projects() {
   const [headingRef, headingInView] = useInView();
   const [contentRef, contentInView] = useInView(0.05);
-  const [activeTab, setActiveTab] = useState<Tab>('all');
-  const [panelVisible, setPanelVisible] = useState(true);
+  const [activeTab, setActiveTab] = useState<Tab>('work');
+  const [phase, setPhase] = useState<'idle' | 'exit' | 'enter'>('idle');
+  const [slideDir, setSlideDir] = useState<'left' | 'right'>('left');
 
   const switchTab = (tab: Tab) => {
-    if (tab === activeTab) return;
-    setPanelVisible(false);
-    setTimeout(() => { setActiveTab(tab); setPanelVisible(true); }, 120);
+    if (tab === activeTab || phase !== 'idle') return;
+    const dir = TAB_ORDER.indexOf(tab) > TAB_ORDER.indexOf(activeTab) ? 'left' : 'right';
+    setSlideDir(dir);
+    setPhase('exit');
+    setTimeout(() => {
+      setActiveTab(tab);
+      setPhase('enter');
+      requestAnimationFrame(() => requestAnimationFrame(() => setPhase('idle')));
+    }, 180);
   };
 
-  const filtered =
-    activeTab === 'all'
-      ? ALL_PROJECTS
-      : ALL_PROJECTS.filter((p) => p.category === activeTab);
+  const exitX = slideDir === 'left' ? '-32px' : '32px';
+  const enterX = slideDir === 'left' ? '32px' : '-32px';
+  const panelStyle: React.CSSProperties =
+    phase === 'idle'  ? { opacity: 1, transform: 'translateX(0)',       transition: 'opacity 220ms ease, transform 220ms ease' } :
+    phase === 'exit'  ? { opacity: 0, transform: `translateX(${exitX})`,  transition: 'opacity 180ms ease, transform 180ms ease' } :
+                        { opacity: 0, transform: `translateX(${enterX})`, transition: 'none' };
+
+  const filtered = ALL_PROJECTS.filter((p) => p.category === activeTab);
 
   return (
     <section id="projects" className="py-24">
@@ -313,7 +336,7 @@ export function Projects() {
             ))}
           </div>
 
-          <div className={`transition-opacity duration-100 ${panelVisible ? 'opacity-100' : 'opacity-0'}`}>
+          <div style={panelStyle}>
             <Carousel items={filtered} />
           </div>
         </div>

@@ -19,9 +19,11 @@ export const personal = {
 // The strip duplicates the array automatically — just list each photo once.
 
 export const heroPhotos = [
-  { src: "/hero/zermatt.jpg", alt: "Photo 1" },
+  { src: "/hero/brienz.jpg", alt: "Photo 5" },
+  { src: "/hero/kandersteg.jpg", alt: "Photo 1" },
   { src: "/hero/grindelwald.jpg", alt: "Photo 2" },
-  { src: "/hero/kandersteg.jpg", alt: "Photo 3" },
+  { src: "/hero/oschinensee.jpg", alt: "Photo 3" },
+  { src: "/hero/zermatt.jpg", alt: "Photo 4" },
 ];
 
 // ─── About ────────────────────────────────────────────────────────────────────
@@ -221,9 +223,14 @@ export const projects: Record<ProjectCategory, Project[]> = {
 
 // ─── Hobbies ──────────────────────────────────────────────────────────────────
 
-export type GameEntry     = { title: string; cover?: string; platform?: string };
-export type TravelEntry   = { location: string; image?: string; caption: string };
-export type KeyboardEntry = { name: string; image?: string; switches?: string; layout?: string };
+export type GameEntry = { title: string; cover?: string; platform?: string };
+export type TravelEntry = { location: string; image?: string; caption: string };
+export type KeyboardEntry = {
+  name: string;
+  image?: string;
+  switches?: string;
+  layout?: string;
+};
 
 export const hobbies: {
   gaming: GameEntry[];
@@ -231,27 +238,51 @@ export const hobbies: {
   keyboards: KeyboardEntry[];
 } = {
   gaming: [
-    { title: "Elden Ring",        platform: "PS5" },
-    { title: "Baldur's Gate 3",   platform: "PC"  },
-    { title: "Hollow Knight",     platform: "PC"  },
-    { title: "Dark Souls III",    platform: "PC"  },
-    { title: "God of War",        platform: "PS5" },
-    { title: "Hades",             platform: "PC"  },
+    { title: "Elden Ring", platform: "PS5" },
+    { title: "Baldur's Gate 3", platform: "PC" },
+    { title: "Hollow Knight", platform: "PC" },
+    { title: "Dark Souls III", platform: "PC" },
+    { title: "God of War", platform: "PS5" },
+    { title: "Hades", platform: "PC" },
   ],
   travel: [
-    { location: "Zermatt",      image: "/hero/zermatt.jpg",      caption: "july '24" },
-    { location: "Grindelwald",  image: "/hero/grindelwald.jpg",  caption: "july '24" },
-    { location: "Kandersteg",   image: "/hero/kandersteg.jpg",   caption: "july '24" },
+    { location: "Zermatt", image: "/hero/zermatt.jpg", caption: "july '24" },
+    {
+      location: "Grindelwald",
+      image: "/hero/grindelwald.jpg",
+      caption: "july '24",
+    },
+    {
+      location: "Kandersteg",
+      image: "/hero/kandersteg.jpg",
+      caption: "july '24",
+    },
   ],
   keyboards: [
-    { name: "Drop CTRL",   switches: "Gateron Yellow",  layout: "TKL" },
-    { name: "KBD75v3",     switches: "Holy Pandas",     layout: "75%" },
-    { name: "Mode Envoy",  switches: "Boba U4T",        layout: "65%" },
+    { name: "Drop CTRL", switches: "Gateron Yellow", layout: "TKL" },
+    { name: "KBD75v3", switches: "Holy Pandas", layout: "75%" },
+    { name: "Mode Envoy", switches: "Boba U4T", layout: "65%" },
   ],
+};
+
+// ─── Footer ───────────────────────────────────────────────────────────────────
+
+export const footer = {
+  taglines: [
+    "Currently: open to new opportunities",
+    "Currently: planning the next adventure",
+    "Currently: lost in a dungeon somewhere",
+    "Currently: theorising the perfect keyboard build",
+  ],
+  credit: "Vibe-coded with my bestie Claude ✦",
 };
 
 // ─── Contact ──────────────────────────────────────────────────────────────────
 
 export const contact = {
-  email: "",
+  heading: "Let's connect.",
+  copy: "Open to new roles, collaborations, or just a good conversation. Reach out on LinkedIn or drop your details below and I'll get back to you.",
+  linkedinCta: "Connect on LinkedIn",
+  dividerLabel: "or send me your details",
+  toastMessage: "Message sent — I'll be in touch!",
 };
