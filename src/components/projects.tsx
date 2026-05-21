@@ -69,7 +69,7 @@ function ExternalLinkIcon({ size = 13 }: { size?: number }) {
   );
 }
 
-const CARD_HEIGHT = 400;
+const CARD_HEIGHT = 450;
 // Vertical breathing room so overflow-x:auto doesn't implicitly clip the 3D flip
 const CLIP_PAD = 24;
 
@@ -87,9 +87,33 @@ function ProjectCard({
   onToggle: () => void;
 }) {
   const [imgErrored, setImgErrored] = useState(false);
+  const [showFade, setShowFade] = useState(false);
+  const backScrollRef = useRef<HTMLDivElement>(null);
   const href = project.href || project.repo;
 
+  const checkFade = useCallback(() => {
+    const el = backScrollRef.current;
+    if (!el) return;
+    setShowFade(el.scrollHeight > el.clientHeight + el.scrollTop + 4);
+  }, []);
+
+  useEffect(() => {
+    if (flipped) {
+      // Wait for the flip animation to finish before measuring
+      const id = setTimeout(checkFade, 350);
+      return () => clearTimeout(id);
+    } else {
+      // Defer scroll reset + fade clear so setState isn't called synchronously in the effect
+      const raf = requestAnimationFrame(() => {
+        if (backScrollRef.current) backScrollRef.current.scrollTop = 0;
+        setShowFade(false);
+      });
+      return () => cancelAnimationFrame(raf);
+    }
+  }, [flipped, checkFade]);
+
   const faceBase = `absolute inset-0 overflow-hidden rounded-2xl border border-white/8 bg-zinc-900/55 backdrop-blur-md ${BORDER_ACCENT[category]}`;
+  const backFaceInner = `relative h-full overflow-hidden rounded-2xl border border-white/8 bg-zinc-900/55 backdrop-blur-md ${BORDER_ACCENT[category]} ${TOP_ACCENT[category]}`;
 
   return (
     <div
@@ -115,7 +139,10 @@ function ProjectCard({
             }}
           >
             {/* ── Front face ── */}
-            <div className={`${faceBase} flex flex-col`} style={{ backfaceVisibility: "hidden" }}>
+            <div
+              className={`${faceBase} flex flex-col`}
+              style={{ backfaceVisibility: "hidden" }}
+            >
               <div
                 className={`relative h-44 w-full flex-shrink-0 bg-gradient-to-br ${HEADER_GRADIENT[category]}`}
               >
@@ -146,66 +173,88 @@ function ProjectCard({
 
             {/* ── Back face — full content, no image ── */}
             <div
-              className={`${faceBase} ${TOP_ACCENT[category]}`}
+              className="absolute inset-0"
               style={{
                 backfaceVisibility: "hidden",
                 transform: "rotateY(180deg)",
               }}
             >
-              <div className="flex h-full flex-col gap-3 p-5">
-                <div className="flex items-start justify-between gap-3">
-                  <h4 className="font-semibold leading-snug text-zinc-200">
-                    {project.name}
-                  </h4>
-                  {href && (
-                    <a
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="mt-0.5 flex-shrink-0 text-zinc-500 transition-colors hover:text-zinc-200"
-                    >
-                      <ExternalLinkIcon size={14} />
-                    </a>
-                  )}
-                </div>
+              {/* Clip wrapper keeps rounded corners; scroll container sits inside */}
+              <div className={backFaceInner}>
+                <div
+                  ref={backScrollRef}
+                  className="h-full overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                  onScroll={checkFade}
+                  style={
+                    showFade
+                      ? {
+                          maskImage:
+                            "linear-gradient(to bottom, black 60%, transparent 100%)",
+                          WebkitMaskImage:
+                            "linear-gradient(to bottom, black 60%, transparent 100%)",
+                        }
+                      : undefined
+                  }
+                >
+                  <div className="flex min-h-full flex-col gap-3 p-5">
+                    <div className="flex items-start justify-between gap-3">
+                      <h4 className="font-semibold leading-snug text-zinc-200">
+                        {project.name}
+                      </h4>
+                      {href && (
+                        <a
+                          href={href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="mt-0.5 flex-shrink-0 text-zinc-500 transition-colors hover:text-zinc-200"
+                        >
+                          <ExternalLinkIcon size={14} />
+                        </a>
+                      )}
+                    </div>
 
-                {project.back.description && (
-                  <p className="text-sm leading-relaxed text-zinc-400">
-                    {renderRichText(project.back.description)}
-                  </p>
-                )}
-                {project.back.bullets && project.back.bullets.length > 0 && (
-                  <ul className="flex flex-col gap-2">
-                    {project.back.bullets.map((b, i) => (
-                      <li key={i} className="flex gap-2.5 text-sm leading-relaxed text-zinc-400">
-                        <span className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-zinc-600" />
-                        <span>{renderRichText(b)}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                    {project.back.description && (
+                      <p className="text-sm leading-relaxed text-zinc-400">
+                        {renderRichText(project.back.description)}
+                      </p>
+                    )}
+                    {project.back.bullets && project.back.bullets.length > 0 && (
+                      <ul className="flex flex-col gap-2">
+                        {project.back.bullets.map((b, i) => (
+                          <li
+                            key={i}
+                            className="flex gap-2.5 text-sm leading-relaxed text-zinc-400"
+                          >
+                            <span className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-zinc-600" />
+                            <span>{renderRichText(b)}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
 
-                <div className="flex flex-col gap-1.5 pt-3">
-                  {project.tagLabel && (
-                    <span className="text-xs font-medium text-zinc-500">
-                      {project.tagLabel}
-                    </span>
-                  )}
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full bg-white/10 px-2.5 py-0.5 text-xs font-medium text-zinc-400"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                    <div className="flex flex-col gap-1.5 pt-3">
+                      {project.tagLabel && (
+                        <span className="text-xs font-medium text-zinc-500">
+                          {project.tagLabel}
+                        </span>
+                      )}
+                      <div className="flex flex-wrap gap-1.5">
+                        {project.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="rounded-full bg-white/10 px-2.5 py-0.5 text-xs font-medium text-zinc-400"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="mt-auto flex justify-end">
+                      <FlipIcon />
+                    </div>
                   </div>
-                </div>
-
-                <div className="mt-auto flex justify-end">
-                  <FlipIcon />
                 </div>
               </div>
             </div>
