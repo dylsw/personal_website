@@ -2,7 +2,7 @@
 
 export const personal = {
   name: "Dylan",
-  loading: "Hello there",
+  loading: "Hello !",
   greeting: "I'm Dylan",
   title: "A product manager passionate about bridging design and data",
   bio: [
@@ -157,9 +157,12 @@ export type ProjectCategory = "work" | "personal";
 
 export type Project = {
   name: string;
-  flavour: string;
-  description: string;
-  bullets: string[];
+  front: string[]; // one or more summary paragraphs
+  back: {
+    description?: string;
+    bullets?: string[];
+  };
+  tagLabel?: string; // label shown above tags on back face, e.g. "Scopes Managed" or "Tech Stack"
   tags: string[];
   image?: string;
   href?: string;
@@ -170,53 +173,71 @@ export const projects: Record<ProjectCategory, Project[]> = {
   work: [
     {
       name: "Teleconsultation",
-      flavour: "A short flavour text shown when the card is collapsed.",
-      description:
-        "A short description of what this project does and the impact it had.",
-      bullets: [
-        "Bullet point one about this project.",
-        "Bullet point two about this project.",
-        "Bullet point two about this project.",
-        "Bullet point two about this project.",
-        "Bullet point two about this project.",
-        "Bullet point two about this project.",
+      front: [
+        "Regulatory non-compliance in Indonesia forced an overnight delisting of all medications on Shopee.",
+        "Teleconsultation flow allowed buyers to connect with third-party teleconsultation providers, establishing a compliant doctor-to-prescription-to-fulfilment flow within the platform.",
       ],
-      tags: ["React", "TypeScript", "AWS"],
+      back: {
+        description: "Some of the key features shipped:",
+        bullets: [
+          "**Teleconsultation**: Buyers can consult a licensed doctor in-app and receive a digital prescription without leaving the platform.",
+          "**Prescription matching**: Prescriptions are automatically matched to available SKUs on Shopee via the listing backend, ensuring only compliant and in-stock medications are surfaced.",
+          "**Smart selection**: Available medications are ranked and displayed to the buyer based on proximity and price, surfacing the most relevant options first.",
+          "**Seamless checkout**: Buyers can review their prescription alongside their selected medication within a single checkout session, with no disruption to the standard purchase flow.",
+        ],
+      },
+      tagLabel: "Scopes Managed",
+      tags: [
+        "Pharma Microsite",
+        "Search & Rec",
+        "Seller Listing",
+        "Checkout",
+        "Fulfilment & Logistics",
+      ],
     },
     {
       name: "Adjacent Market Expansion",
-      flavour: "A short flavour text shown when the card is collapsed.",
-      description:
-        "A short description of what this project does and the impact it had.",
-      bullets: [
-        "Bullet point one about this project.",
-        "Bullet point two about this project.",
-      ],
-      tags: ["React", "TypeScript", "AWS"],
+      front: ["A short summary shown on the front of the card."],
+      back: {
+        description:
+          "A short description of what this project does and the impact it had.",
+        bullets: [
+          "Bullet point one about this project.",
+          "Bullet point two about this project.",
+        ],
+      },
+      tagLabel: "Scopes Managed",
+      tags: ["Search & Recommendation", "Homepage", "Listing"],
     },
     {
       name: "Adjacent Market Expansion 2",
-      flavour: "A short flavour text shown when the card is collapsed.",
-      description:
-        "A short description of what this project does and the impact it had.",
-      bullets: [
-        "Bullet point one about this project.",
-        "Bullet point two about this project.",
-      ],
-      tags: ["React", "TypeScript", "AWS"],
+      front: ["A short summary shown on the front of the card."],
+      back: {
+        description:
+          "A short description of what this project does and the impact it had.",
+        bullets: [
+          "Bullet point one about this project.",
+          "Bullet point two about this project.",
+        ],
+      },
+      tagLabel: "Scopes Managed",
+      tags: ["Cart & Checkout", "Payments"],
     },
   ],
   personal: [
     {
       name: "SeepDeek for StrAIght Up! Hackathon",
-      flavour: "A short flavour text shown when the card is collapsed.",
-      description:
-        "A short description of what this project does and the tech behind it.",
-      bullets: [
-        "Bullet point one about this project.",
-        "Bullet point two about this project.",
-      ],
+      front: ["A short summary shown on the front of the card."],
+      back: {
+        description:
+          "A short description of what this project does and the tech behind it.",
+        bullets: [
+          "Bullet point one about this project.",
+          "Bullet point two about this project.",
+        ],
+      },
       href: "https://github.com",
+      tagLabel: "Tech Stack",
       tags: ["Next.js", "PostgreSQL"],
     },
   ],

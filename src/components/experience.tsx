@@ -46,6 +46,7 @@ function CompanyLogo({ src, name }: { src: string; name: string }) {
         src={src}
         alt={name}
         fill
+        sizes="28px"
         className="object-contain p-0.5"
         onError={() => setErrored(true)}
       />

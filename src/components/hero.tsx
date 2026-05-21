@@ -29,8 +29,9 @@ function PhotoCard({ src, alt, index }: { src: string; alt: string; index: numbe
         src={imgSrc}
         alt={alt}
         fill
-        className="object-cover transition-transform duration-500 hover:scale-105"
+        priority={index < 2}
         sizes="(max-width: 640px) 256px, 320px"
+        className="object-cover transition-transform duration-500 hover:scale-105"
         onError={() => setImgSrc('/placeholder.png')}
       />
     </div>
@@ -80,7 +81,7 @@ export function Hero() {
           clearInterval(id);
           setTypingDone(true);
         }
-      }, 50);
+      }, 80);
     };
 
     if (introDone) {
