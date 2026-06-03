@@ -178,7 +178,7 @@ export const projects: Record<ProjectCategory, Project[]> = {
         "Teleconsultation flow allowed buyers to connect with third-party teleconsultation providers, establishing a compliant doctor-to-prescription-to-fulfilment flow within the platform.",
       ],
       back: {
-        description: "Some of the key features shipped:",
+        description: "Key features shipped:",
         bullets: [
           "**Teleconsultation**: Buyers can consult a licensed doctor in-app and receive a digital prescription without leaving the platform.",
           "**Prescription matching**: Prescriptions are automatically matched to available SKUs on Shopee via the listing backend, ensuring only compliant and in-stock medications are surfaced.",
@@ -191,37 +191,97 @@ export const projects: Record<ProjectCategory, Project[]> = {
         "Pharma Microsite",
         "Search & Rec",
         "Seller Listing",
+        "Item Card",
         "Checkout",
+        "Order Success",
         "Fulfilment & Logistics",
       ],
     },
     {
       name: "Adjacent Market Expansion",
-      front: ["A short summary shown on the front of the card."],
+      front: [
+        "Four new SEA markets (Cambodia, Laos, Myanmar & Brunei), with each their own platform, required us to build localized buyer experiences from the ground up. Each market with its own regulatory, logistics, and payment requirements.",
+      ],
       back: {
-        description:
-          "A short description of what this project does and the impact it had.",
+        description: "Key features shipped:",
         bullets: [
-          "Bullet point one about this project.",
-          "Bullet point two about this project.",
+          "**Special Brunei address flow**: Brunei shares Shopee's Malaysia app, requiring a specialized address flow layered on top of the existing Malaysia add/edit address experience. Supported Brunei-specific address formats and postal requirements without disrupting Malaysian users",
+          "**Localized cart/checkout**: Each market required a fully customised cart/checkout configuration, covering applicable local taxes, coin rules, and logistic/payment pre-selection options based on availability",
+          "**Logistics routing**: Coordinated with logistics partners to define fulfilment plans and carrier options specific to each market, accounting for cross-border and last-mile constraints",
+          "**Feature localization**: Configured market-specific features (such as promotions and upsell) based on region requirements and availability, ensuring buyers in each country only saw relevant features at checkout",
         ],
       },
       tagLabel: "Scopes Managed",
-      tags: ["Search & Recommendation", "Homepage", "Listing"],
+      tags: ["Buyer Address", "Cart", "Checkout", "Order Success"],
     },
     {
-      name: "Adjacent Market Expansion 2",
-      front: ["A short summary shown on the front of the card."],
+      name: "New Buyer Initiatives",
+      front: [
+        "Acquiring new buyers is expensive, and losing them to friction before they complete their first purchase is worse.",
+        "Initiaves aim to tackle two key drop-off points in the new buyer funnel, improving guest (non-logged in) cart and no-address checkout.",
+      ],
       back: {
-        description:
-          "A short description of what this project does and the impact it had.",
+        description: "Key features shipped:",
         bullets: [
-          "Bullet point one about this project.",
-          "Bullet point two about this project.",
+          "**Guest cart**: Enabled guest cart flow for buyers arriving via livestream, video, and external ad traffic (accessible across app, mobile browser, and PC browser) ensuring paid traffic from Google and Meta campaigns could convert without requiring login upfront",
+          "**No-Address checkout**: Buyers can now enter checkout without a saved address. The platform applies a default address based on the user's app region to power logistics and payment preselection, as well as voucher and promotion eligibility, so checkout experience remains fully functional from the start",
+          "**Integrated address flow**: When a buyer adds or updates their address within the checkout session, all logistics options, payment methods, vouchers, and promotions are dynamically recalculated in real time to reflect the confirmed delivery location",
         ],
       },
       tagLabel: "Scopes Managed",
-      tags: ["Cart & Checkout", "Payments"],
+      tags: ["Buyer Address", "Cart", "Checkout"],
+    },
+    {
+      name: "Buy One More & Smart Voucher Cancel Checkout Popup",
+      front: [
+        "Two separate but complementary features aimed at reducing checkout abandonment and increasing order value.",
+        "Both Buy One More and Cancel Checkout Popup required careful implementation to handle the nuances of each market.",
+      ],
+      back: {
+        description: "Key features shipped:",
+        bullets: [
+          "**Buy One More UI optimization**: Revamped promotion display layout based on A/B testing results, improving visibility and engagement with add-on recommendations at checkout",
+          "**Regional fee filtering**: For markets like Indonesia where items may carry additional transaction or miscellaneous shipping fees, implemented special filtering logic to exclude these items from Buy One More recommendations",
+          "**Smart voucher cancel popup**: Introduced a popup triggered when a buyer attempts to back out of checkout, surfacing relevant vouchers to incentivise them to complete the purchase",
+          "**Trigger rules**: Popup behaviour is governed by per-region rules covering display frequency limits and cooldown periods, preventing over-exposure and ensuring the nudge feels timely rather than spammy",
+        ],
+      },
+      tagLabel: "Scopes Managed",
+      tags: ["Cart", "Checkout", "Marketplace Data", "Voucher Promotion"],
+    },
+    {
+      name: "Pix Final Price",
+      front: [
+        "Shopee's partnership with Pix in Brazil introduced a market-specific payment discount that needed to be surfaced clearly and consistently across cart and checkout.",
+      ],
+      back: {
+        description: "Key features shipped:",
+        bullets: [
+          "**Pix final price display**: Integrated Pix discount into the final price display component alongside existing promotions, requiring careful decisions on tax base handling to ensure the discounted price is calculated and shown correctly",
+          "**Payment method toggle**: Since buyers can switch between payment methods at checkout, implemented logic to handle the non-Pix selected state, by surfacing the more favourable Pix price as a nudge to encourage buyers to switch, without misrepresenting the actual payable amount",
+          "**Cart Pix pricing**: Applied the same Pix price display logic on the cart page for eligible items, giving buyers visibility of the potential discount earlier in the funnel",
+        ],
+      },
+      tagLabel: "Scopes Managed",
+      tags: ["Cart", "Checkout", "Discount Promotion"],
+    },
+    {
+      name: "Order Success Page Revamp",
+      front: [
+        "The order success page was the most consistently seen pages on the platform, yet it hadn't been meaningfully updated.",
+        "The revamp turned a barebones confirmation screen into a useful post-purchase touchpoint, surfacing order information, VIP awareness, and keeping buyers engaged post-checkout.",
+      ],
+      back: {
+        description: "Key features shipped:",
+        bullets: [
+          "**Order summary**: Surfaced key order details directly on the confirmation page (including item images, estimated delivery date, and total price paid) giving buyers immediate confidence in their order",
+          "**VIP savings**: For existing Shopee VIP members, a personalized banner highlights the savings earned on their current order, reinforcing the value of their subscription at a moment of high satisfaction",
+          "**VIP acquisition**: For non-VIP buyers, the page surfaces a contextual prompt showing the Shopee VIP subscription price, catching them at a high-intent moment right after a completed purchase",
+          "**Games improvements**: Improved the post-purchase games experience to dispatch smart vouchers on completion to drive repeat purchase",
+        ],
+      },
+      tagLabel: "Scopes Managed",
+      tags: ["Checkout", "Order Success", "Shopee VIP", "Games"],
     },
   ],
   personal: [
