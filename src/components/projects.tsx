@@ -87,30 +87,32 @@ function ProjectCard({
   onToggle: () => void;
 }) {
   const [imgErrored, setImgErrored] = useState(false);
-  const [showFade, setShowFade] = useState(false);
+  const [showHint, setShowHint] = useState(false);
   const backScrollRef = useRef<HTMLDivElement>(null);
   const href = project.href || project.repo;
 
-  const checkFade = useCallback(() => {
+  const checkHint = useCallback(() => {
     const el = backScrollRef.current;
     if (!el) return;
-    setShowFade(el.scrollHeight > el.clientHeight + el.scrollTop + 4);
+    setShowHint(el.scrollHeight > el.clientHeight + el.scrollTop + 4);
   }, []);
 
+  // Pre-calculate on mount so the hint is ready before the first flip
   useEffect(() => {
-    if (flipped) {
-      // Wait for the flip animation to finish before measuring
-      const id = setTimeout(checkFade, 350);
-      return () => clearTimeout(id);
-    } else {
-      // Defer scroll reset + fade clear so setState isn't called synchronously in the effect
-      const raf = requestAnimationFrame(() => {
+    const id = setTimeout(checkHint, 100);
+    return () => clearTimeout(id);
+  }, [checkHint]);
+
+  // Hold hint until flip-back animation finishes, then reset scroll + re-measure
+  useEffect(() => {
+    if (!flipped) {
+      const id = setTimeout(() => {
         if (backScrollRef.current) backScrollRef.current.scrollTop = 0;
-        setShowFade(false);
-      });
-      return () => cancelAnimationFrame(raf);
+        checkHint();
+      }, 650);
+      return () => clearTimeout(id);
     }
-  }, [flipped, checkFade]);
+  }, [flipped, checkHint]);
 
   const faceBase = `absolute inset-0 overflow-hidden rounded-2xl border border-white/8 bg-zinc-900/55 backdrop-blur-md ${BORDER_ACCENT[category]}`;
   const backFaceInner = `relative h-full overflow-hidden rounded-2xl border border-white/8 bg-zinc-900/55 backdrop-blur-md ${BORDER_ACCENT[category]} ${TOP_ACCENT[category]}`;
@@ -184,17 +186,7 @@ function ProjectCard({
                 <div
                   ref={backScrollRef}
                   className="h-full overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-                  onScroll={checkFade}
-                  style={
-                    showFade
-                      ? {
-                          maskImage:
-                            "linear-gradient(to bottom, black 60%, transparent 100%)",
-                          WebkitMaskImage:
-                            "linear-gradient(to bottom, black 60%, transparent 100%)",
-                        }
-                      : undefined
-                  }
+                  onScroll={checkHint}
                 >
                   <div className="flex min-h-full flex-col gap-3 p-5">
                     <div className="flex items-start justify-between gap-3">
@@ -219,19 +211,20 @@ function ProjectCard({
                         {renderRichText(project.back.description)}
                       </p>
                     )}
-                    {project.back.bullets && project.back.bullets.length > 0 && (
-                      <ul className="flex flex-col gap-2">
-                        {project.back.bullets.map((b, i) => (
-                          <li
-                            key={i}
-                            className="flex gap-2.5 text-sm leading-relaxed text-zinc-400"
-                          >
-                            <span className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-zinc-600" />
-                            <span>{renderRichText(b)}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
+                    {project.back.bullets &&
+                      project.back.bullets.length > 0 && (
+                        <ul className="flex flex-col gap-2">
+                          {project.back.bullets.map((b, i) => (
+                            <li
+                              key={i}
+                              className="flex gap-2.5 text-sm leading-relaxed text-zinc-400"
+                            >
+                              <span className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-zinc-600" />
+                              <span>{renderRichText(b)}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
 
                     <div className="flex flex-col gap-1.5 pt-3">
                       {project.tagLabel && (
@@ -254,6 +247,28 @@ function ProjectCard({
                     <div className="mt-auto flex justify-end">
                       <FlipIcon />
                     </div>
+                  </div>
+                </div>
+
+                {/* Scroll hint — fades out once the user reaches the bottom */}
+                <div
+                  className="pointer-events-none absolute bottom-3 left-0 right-0 flex justify-center transition-opacity duration-300"
+                  style={{ opacity: showHint ? 1 : 0 }}
+                >
+                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-white/30">
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="text-black"
+                    >
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
                   </div>
                 </div>
               </div>
