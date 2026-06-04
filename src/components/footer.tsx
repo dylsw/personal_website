@@ -25,7 +25,7 @@ export function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    <footer className="relative z-10 border-t border-white/6 py-10">
+    <footer className="relative z-10 border-t border-white/8 bg-zinc-950/90 py-10 backdrop-blur-md">
       <div className="mx-auto flex max-w-3xl flex-col items-center gap-4 px-6 text-center">
         <button
           onClick={scrollToTop}

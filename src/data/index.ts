@@ -286,19 +286,42 @@ export const projects: Record<ProjectCategory, Project[]> = {
   ],
   personal: [
     {
-      name: "SeepDeek for StrAIght Up! Hackathon",
-      front: ["A short summary shown on the front of the card."],
+      name: "SeepDeek for StrAIght Up! Hackathon (First Place)",
+      front: [
+        "Noise in high-impact engineering environments was the problem statement.",
+        "SeepDeek is an AI-powered platform that aggregates communication channels and acts on them, not just reads them.",
+      ],
       back: {
-        description:
-          "A short description of what this project does and the tech behind it.",
+        description: "Key features shipped:",
         bullets: [
-          "Bullet point one about this project.",
-          "Bullet point two about this project.",
+          "**Unified communication hub**: Aggregated Slack messages, Gmail threads, and Linear tickets into a single interface, giving engineers one place to triage instead of context-switching across tools",
+          "**Event-driven resolver** : Actions taken across the three platforms generate raw events that are passed as input to an LLM resolver, which interprets context and determines the appropriate response",
+          "**Agentic action**: The resolver is equipped with a set of tools, such as closing Linear tickets, drafting replies, or flagging messages, allowing it to take autonomous actions based on message content and user intent",
+          "**Noise reduction by design**: Rather than adding another dashboard to monitor, SeeDeek reduces the cognitive load on engineers by resolving low-complexity actions automatically, surfacing only what genuinely needs human attention",
         ],
       },
       href: "https://github.com",
       tagLabel: "Tech Stack",
-      tags: ["Next.js", "PostgreSQL"],
+      tags: ["Next.js", "Python"],
+    },
+    {
+      name: "Slack RAG Chatbot (Final Year Project)",
+      front: [
+        "A 6-month final year project building an AI chatbot for IMDA Singapore's internal staff to query and navigate tech industry news.",
+        "The chatbot was subsequently picked up and further developed by IMDA's internal engineering team after handoff.",
+      ],
+      back: {
+        description: "Key features shipped:",
+        bullets: [
+          "**Slack-native interface**: Deployed the chatbot directly within Slack, meeting internal staff where they already worked rather than introducing a new tool to adopt",
+          "**Automated news ingestion**: Built web scraping pipelines and API integrations to continuously pull and categorise tech industry news by topic, keeping the chatbot's knowledge base current without manual input",
+          "**Hybrid retrieval engine**: Implemented a Neo4j graph database combined with a vector store for context-aware query responses. The graph layer captured topic relationships that pure vector similarity retrieval would have missed",
+          "**RAGAS evaluation**: Benchmarked the chatbot against RAGAS metrics throughout development, achieving a score of 0.8+. A strong result for a RAG implementation at the time",
+        ],
+      },
+      href: "https://github.com",
+      tagLabel: "Tech Stack",
+      tags: ["JS", "Python"],
     },
   ],
 };
@@ -320,12 +343,10 @@ export const hobbies: {
   keyboards: KeyboardEntry[];
 } = {
   gaming: [
-    { title: "Elden Ring", platform: "PS5" },
-    { title: "Baldur's Gate 3", platform: "PC" },
-    { title: "Hollow Knight", platform: "PC" },
-    { title: "Dark Souls III", platform: "PC" },
-    { title: "God of War", platform: "PS5" },
-    { title: "Hades", platform: "PC" },
+    { title: "Dota 2", platform: "PC" },
+    { title: "Teamfight Tactics", platform: "PC" },
+    { title: "Final Fantasy", platform: "PS4/5" },
+    { title: "HSR", platform: "Mobile" },
   ],
   travel: [
     { location: "Zermatt", image: "/hero/zermatt.jpg", caption: "july '24" },
