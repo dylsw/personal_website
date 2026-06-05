@@ -343,28 +343,94 @@ export const hobbies: {
   keyboards: KeyboardEntry[];
 } = {
   gaming: [
-    { title: "Dota 2", platform: "PC" },
-    { title: "Teamfight Tactics", platform: "PC" },
-    { title: "Final Fantasy", platform: "PS4/5" },
-    { title: "HSR", platform: "Mobile" },
+    { title: "Dota 2", platform: "PC", cover: "/gaming/dota2.jpg" },
+    { title: "Pokemon", platform: "Nintendo", cover: "/gaming/pokemon.jpg" },
+    { title: "Teamfight Tactics", platform: "PC", cover: "/gaming/tft.jpg" },
+    { title: "Final Fantasy", platform: "PS4/5", cover: "/gaming/ff7.png" },
+    { title: "HSR", platform: "Mobile", cover: "/gaming/hsr.png" },
+    { title: "God of War", platform: "PS4/5", cover: "/gaming/gow.jpg" },
+    { title: "Persona", platform: "PC", cover: "/gaming/persona.jpg" },
+    { title: "Spiderman", platform: "PS4/5", cover: "/gaming/spiderman.jpg" },
+    { title: "Elden Ring", platform: "PC", cover: "/gaming/eldenring.jpg" },
   ],
   travel: [
-    { location: "Zermatt", image: "/hero/zermatt.jpg", caption: "july '24" },
     {
-      location: "Grindelwald",
-      image: "/hero/grindelwald.jpg",
-      caption: "july '24",
+      location: "Hokkaido",
+      image: "/travel/hokkaido.jpg",
+      caption: "jun '26",
     },
     {
-      location: "Kandersteg",
-      image: "/hero/kandersteg.jpg",
-      caption: "july '24",
+      location: "Paris",
+      image: "/travel/paris.jpg",
+      caption: "apr '26",
+    },
+    {
+      location: "Iceland",
+      image: "/travel/iceland.jpg",
+      caption: "mar '26",
+    },
+    {
+      location: "London",
+      image: "/travel/london.jpg",
+      caption: "mar '26",
+    },
+    {
+      location: "Tokyo",
+      image: "/travel/tokyo.jpg",
+      caption: "oct '25",
+    },
+    {
+      location: "Milan",
+      image: "/travel/milan.jpg",
+      caption: "jul '25",
+    },
+    {
+      location: "Switzerland",
+      image: "/travel/swiss.jpg",
+      caption: "jul '25",
+    },
+    {
+      location: "Busan",
+      image: "/travel/busan.jpg",
+      caption: "jun '25",
+    },
+    {
+      location: "Sydney",
+      image: "/travel/sydney.jpg",
+      caption: "may '25",
     },
   ],
   keyboards: [
-    { name: "Drop CTRL", switches: "Gateron Yellow", layout: "TKL" },
-    { name: "KBD75v3", switches: "Holy Pandas", layout: "75%" },
-    { name: "Mode Envoy", switches: "Boba U4T", layout: "65%" },
+    {
+      name: "Glacier80",
+      switches: "JWK Quartz",
+      layout: "TKL",
+      image: "/keyboards/glacier.jpg",
+    },
+    {
+      name: "Frog by Geonworks",
+      switches: "Cherry-Topped Meteor White",
+      layout: "TKL",
+      image: "/keyboards/frog.jpg",
+    },
+    {
+      name: "Mode Sonnet",
+      switches: "Bolsa Zaku",
+      layout: "75%",
+      image: "/keyboards/sonnet.jpg",
+    },
+    {
+      name: "QwertyKeys65",
+      switches: "Gateron Oil King",
+      layout: "65%",
+      image: "/keyboards/qk65.webp",
+    },
+    {
+      name: "Rainy75",
+      switches: "HMX Violet",
+      layout: "65%",
+      image: "/keyboards/rainy.jpg",
+    },
   ],
 };
 

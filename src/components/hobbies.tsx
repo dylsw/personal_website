@@ -26,19 +26,15 @@ function GameCard({ game, index }: { game: GameEntry; index: number }) {
         className={`relative overflow-hidden rounded-xl bg-gradient-to-br ${gradient} shadow-md transition-all duration-300 group-hover:-translate-y-2.5 group-hover:shadow-xl group-hover:shadow-black/60`}
         style={{ height: '160px' }}
       >
-        {game.cover ? (
+        {game.cover && (
           <Image src={game.cover} alt={game.title} fill className="object-cover" />
-        ) : (
-          <div className="flex h-full flex-col justify-end p-3">
-            <span className="text-[11px] font-semibold leading-snug text-white/75">
-              {game.title}
-            </span>
-          </div>
         )}
       </div>
-      {game.platform && (
-        <p className="mt-1.5 text-center text-[10px] text-zinc-600">{game.platform}</p>
-      )}
+      <div className="mt-2 flex justify-center">
+        <span className="rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-semibold text-zinc-300">
+          {game.title}
+        </span>
+      </div>
     </div>
   );
 }
@@ -73,8 +69,8 @@ function TravelCard({ entry, index }: { entry: TravelEntry; index: number }) {
           )}
         </div>
         <div className="mt-2">
-          <p className="text-center text-[11px] italic text-zinc-500">{entry.caption}</p>
-          <p className="mt-0.5 text-center text-[10px] text-zinc-400">{entry.location}</p>
+          <p className="text-center text-[12px] font-medium tracking-tight text-zinc-700">{entry.location}</p>
+          <p className="mt-0.5 text-center text-[9px] font-bold uppercase tracking-widest text-zinc-400 opacity-60">{entry.caption}</p>
         </div>
       </div>
     </div>
