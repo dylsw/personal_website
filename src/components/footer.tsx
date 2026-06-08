@@ -25,7 +25,10 @@ export function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    <footer className="relative z-10 border-t border-white/8 bg-zinc-950/90 py-10 backdrop-blur-md">
+    <footer className="relative z-10 bg-zinc-950/90 py-10 backdrop-blur-md">
+      {/* Gradient accent border */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent" />
+
       <div className="mx-auto flex max-w-3xl flex-col items-center gap-4 px-6 text-center">
         <button
           onClick={scrollToTop}
@@ -35,9 +38,12 @@ export function Footer() {
           Back to top
         </button>
 
-        <p className="text-xs text-zinc-500">
-          © {new Date().getFullYear()} {personal.name} · {footerData.credit}
-        </p>
+        <div className="flex flex-col items-center gap-1">
+          <p className="text-xs text-zinc-500">
+            © {new Date().getFullYear()} {personal.name} ♥
+          </p>
+          <p className="text-xs text-zinc-600">{footerData.credit}</p>
+        </div>
       </div>
     </footer>
   );

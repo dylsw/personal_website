@@ -17,6 +17,24 @@ const GAME_GRADIENTS = [
   'from-fuchsia-950 to-purple-900',
 ];
 
+// ── Shared image skeleton ────────────────────────────────────────────────────
+function ImageWithSkeleton({ src, alt, sizes, skeletonClass = 'bg-zinc-700/60' }: { src: string; alt: string; sizes: string; skeletonClass?: string }) {
+  const [loaded, setLoaded] = useState(false);
+  return (
+    <>
+      {!loaded && <div className={`absolute inset-0 animate-pulse ${skeletonClass}`} />}
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes={sizes}
+        className={`object-cover transition-opacity duration-500 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+        onLoad={() => setLoaded(true)}
+      />
+    </>
+  );
+}
+
 // ── Game card ────────────────────────────────────────────────────────────────
 function GameCard({ game, index }: { game: GameEntry; index: number }) {
   const gradient = GAME_GRADIENTS[index % GAME_GRADIENTS.length];
@@ -26,9 +44,7 @@ function GameCard({ game, index }: { game: GameEntry; index: number }) {
         className={`relative overflow-hidden rounded-xl bg-gradient-to-br ${gradient} shadow-md transition-all duration-300 group-hover:-translate-y-2.5 group-hover:shadow-xl group-hover:shadow-black/60`}
         style={{ height: '160px' }}
       >
-        {game.cover && (
-          <Image src={game.cover} alt={game.title} fill className="object-cover" />
-        )}
+        {game.cover && <ImageWithSkeleton src={game.cover} alt={game.title} sizes="130px" />}
       </div>
       <div className="mt-2 flex justify-center">
         <span className="rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-semibold text-zinc-300">
@@ -63,7 +79,7 @@ function TravelCard({ entry, index }: { entry: TravelEntry; index: number }) {
       >
         <div className="relative overflow-hidden" style={{ height: '130px' }}>
           {entry.image ? (
-            <Image src={entry.image} alt={entry.location} fill className="object-cover" />
+            <ImageWithSkeleton src={entry.image} alt={entry.location} sizes="160px" skeletonClass="bg-zinc-200" />
           ) : (
             <div className="h-full bg-zinc-200" />
           )}
@@ -86,7 +102,7 @@ function KeyboardCard({ kb }: { kb: KeyboardEntry }) {
     >
       {kb.image ? (
         <>
-          <Image src={kb.image} alt={kb.name} fill className="object-cover" />
+          <ImageWithSkeleton src={kb.image} alt={kb.name} sizes="260px" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
         </>
       ) : (

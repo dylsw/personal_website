@@ -153,6 +153,7 @@ function ProjectCard({
                     src={project.image}
                     alt={project.name}
                     fill
+                    sizes="(max-width: 768px) 100vw, 768px"
                     className="object-cover"
                     onError={() => setImgErrored(true)}
                   />

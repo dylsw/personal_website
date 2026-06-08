@@ -437,12 +437,6 @@ export const hobbies: {
 // ─── Footer ───────────────────────────────────────────────────────────────────
 
 export const footer = {
-  taglines: [
-    "Currently: open to new opportunities",
-    "Currently: planning the next adventure",
-    "Currently: lost in a dungeon somewhere",
-    "Currently: theorising the perfect keyboard build",
-  ],
   credit: "Vibe-coded with my bestie Claude ✦",
 };
 
