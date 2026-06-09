@@ -2,7 +2,7 @@
 
 export const personal = {
   name: "Dylan",
-  loading: "Hello !",
+  loading: "Hello",
   greeting: "I'm Dylan",
   title: "A product manager passionate about bridging design and data",
   bio: [
@@ -173,6 +173,7 @@ export const projects: Record<ProjectCategory, Project[]> = {
   work: [
     {
       name: "Teleconsultation",
+      image: "/projects/teleconsult.jpg",
       front: [
         "Regulatory non-compliance in Indonesia forced an overnight delisting of all medications on Shopee.",
         "Teleconsultation flow allowed buyers to connect with third-party teleconsultation providers, establishing a compliant doctor-to-prescription-to-fulfilment flow within the platform.",
@@ -199,6 +200,7 @@ export const projects: Record<ProjectCategory, Project[]> = {
     },
     {
       name: "Adjacent Market Expansion",
+      image: "/projects/adjacent-market.jpg",
       front: [
         "Four new SEA markets (Cambodia, Laos, Myanmar & Brunei), with each their own platform, required us to build localized buyer experiences from the ground up. Each market with its own regulatory, logistics, and payment requirements.",
       ],
@@ -216,6 +218,7 @@ export const projects: Record<ProjectCategory, Project[]> = {
     },
     {
       name: "New Buyer Initiatives",
+      image: "/projects/new-buyer.jpg",
       front: [
         "Acquiring new buyers is expensive, and losing them to friction before they complete their first purchase is worse.",
         "Initiaves aim to tackle two key drop-off points in the new buyer funnel, improving guest (non-logged in) cart and no-address checkout.",
@@ -233,6 +236,7 @@ export const projects: Record<ProjectCategory, Project[]> = {
     },
     {
       name: "Buy One More & Smart Voucher Cancel Checkout Popup",
+      image: "/projects/buy-one-more.jpg",
       front: [
         "Two separate but complementary features aimed at reducing checkout abandonment and increasing order value.",
         "Both Buy One More and Cancel Checkout Popup required careful implementation to handle the nuances of each market.",
@@ -251,6 +255,7 @@ export const projects: Record<ProjectCategory, Project[]> = {
     },
     {
       name: "Pix Final Price",
+      image: "/projects/pix.jpg",
       front: [
         "Shopee's partnership with Pix in Brazil introduced a market-specific payment discount that needed to be surfaced clearly and consistently across cart and checkout.",
       ],
@@ -267,6 +272,7 @@ export const projects: Record<ProjectCategory, Project[]> = {
     },
     {
       name: "Order Success Page Revamp",
+      image: "/projects/order-success.jpg",
       front: [
         "The order success page was the most consistently seen pages on the platform, yet it hadn't been meaningfully updated.",
         "The revamp turned a barebones confirmation screen into a useful post-purchase touchpoint, surfacing order information, VIP awareness, and keeping buyers engaged post-checkout.",
@@ -287,6 +293,7 @@ export const projects: Record<ProjectCategory, Project[]> = {
   personal: [
     {
       name: "SeepDeek for StrAIght Up! Hackathon (First Place)",
+      image: "/projects/seepdeek.jpg",
       front: [
         "Noise in high-impact engineering environments was the problem statement.",
         "SeepDeek is an AI-powered platform that aggregates communication channels and acts on them, not just reads them.",
@@ -306,6 +313,7 @@ export const projects: Record<ProjectCategory, Project[]> = {
     },
     {
       name: "Slack RAG Chatbot (Final Year Project)",
+      image: "/projects/slack-rag.jpg",
       front: [
         "A 6-month final year project building an AI chatbot for IMDA Singapore's internal staff to query and navigate tech industry news.",
         "The chatbot was subsequently picked up and further developed by IMDA's internal engineering team after handoff.",

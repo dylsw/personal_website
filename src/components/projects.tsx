@@ -69,7 +69,7 @@ function ExternalLinkIcon({ size = 13 }: { size?: number }) {
   );
 }
 
-const CARD_HEIGHT = 450;
+const CARD_HEIGHT = 480;
 // Vertical breathing room so overflow-x:auto doesn't implicitly clip the 3D flip
 const CLIP_PAD = 24;
 
@@ -146,7 +146,7 @@ function ProjectCard({
               style={{ backfaceVisibility: "hidden" }}
             >
               <div
-                className={`relative h-44 w-full flex-shrink-0 bg-gradient-to-br ${HEADER_GRADIENT[category]}`}
+                className={`relative h-44 sm:h-72 w-full flex-shrink-0 bg-gradient-to-br ${HEADER_GRADIENT[category]}`}
               >
                 {project.image && !imgErrored && (
                   <Image
@@ -160,17 +160,17 @@ function ProjectCard({
                 )}
               </div>
               <div className="flex flex-1 flex-col gap-3 p-5">
-                <h4 className="font-semibold leading-snug text-zinc-200">
-                  {project.name}
-                </h4>
+                <div className="flex items-start justify-between gap-3">
+                  <h4 className="font-semibold leading-snug text-zinc-200">
+                    {project.name}
+                  </h4>
+                  <FlipIcon />
+                </div>
                 {project.front.map((para, i) => (
                   <p key={i} className="text-sm leading-relaxed text-zinc-400">
                     {renderRichText(para)}
                   </p>
                 ))}
-                <div className="mt-auto flex justify-end">
-                  <FlipIcon />
-                </div>
               </div>
             </div>
 
@@ -194,17 +194,20 @@ function ProjectCard({
                       <h4 className="font-semibold leading-snug text-zinc-200">
                         {project.name}
                       </h4>
-                      {href && (
-                        <a
-                          href={href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="mt-0.5 flex-shrink-0 text-zinc-500 transition-colors hover:text-zinc-200"
-                        >
-                          <ExternalLinkIcon size={14} />
-                        </a>
-                      )}
+                      <div className="mt-0.5 flex flex-shrink-0 items-center gap-2">
+                        {href && (
+                          <a
+                            href={href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="text-zinc-500 transition-colors hover:text-zinc-200"
+                          >
+                            <ExternalLinkIcon size={14} />
+                          </a>
+                        )}
+                        <FlipIcon />
+                      </div>
                     </div>
 
                     {project.back.description && (
@@ -243,10 +246,6 @@ function ProjectCard({
                           </span>
                         ))}
                       </div>
-                    </div>
-
-                    <div className="mt-auto flex justify-end">
-                      <FlipIcon />
                     </div>
                   </div>
                 </div>
@@ -412,7 +411,7 @@ function Carousel({ items }: { items: TaggedProject[] }) {
 
       {/* Bottom controls: arrows flanking the dot indicators */}
       {items.length > 1 && (
-        <div className="flex items-center justify-center gap-3">
+        <div className="-mt-4 flex items-center justify-center gap-3">
           <NavArrow
             direction="left"
             onClick={() => scrollTo("left")}
@@ -519,7 +518,7 @@ export function Projects() {
             transition: "opacity 550ms ease 100ms, transform 550ms ease 100ms",
           }}
         >
-          <div className="mb-6 flex gap-2">
+          <div className="mb-1 flex gap-2">
             {TABS.map((tab) => (
               <button
                 key={tab.id}

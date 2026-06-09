@@ -15,6 +15,10 @@ body {
   color: var(--foreground);
 }
 
+html {
+  overflow-y: scroll;
+}
+
 html,
 body {
   -ms-overflow-style: none;

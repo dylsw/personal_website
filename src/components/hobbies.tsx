@@ -1,34 +1,53 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { useState, useRef, useEffect } from 'react';
-import { hobbies, type GameEntry, type TravelEntry, type KeyboardEntry } from '@/data';
-import { useInView } from '@/lib/use-in-view';
+import Image from "next/image";
+import { useState, useRef, useEffect } from "react";
+import {
+  hobbies,
+  type GameEntry,
+  type TravelEntry,
+  type KeyboardEntry,
+} from "@/data";
+import { useInView } from "@/lib/use-in-view";
 
 // ── Seeded rotations so polaroids look hand-placed ──────────────────────────
-const POLAROID_ROTATIONS = [-3.5, 2.2, -1.8, 3.8, -2.5, 1.5, -4.0, 2.8, -1.2, 3.2];
+const POLAROID_ROTATIONS = [
+  -3.5, 2.2, -1.8, 3.8, -2.5, 1.5, -4.0, 2.8, -1.2, 3.2,
+];
 
 const GAME_GRADIENTS = [
-  'from-violet-950 to-indigo-900',
-  'from-rose-950 to-pink-900',
-  'from-amber-950 to-orange-900',
-  'from-emerald-950 to-teal-900',
-  'from-sky-950 to-blue-900',
-  'from-fuchsia-950 to-purple-900',
+  "from-violet-950 to-indigo-900",
+  "from-rose-950 to-pink-900",
+  "from-amber-950 to-orange-900",
+  "from-emerald-950 to-teal-900",
+  "from-sky-950 to-blue-900",
+  "from-fuchsia-950 to-purple-900",
 ];
 
 // ── Shared image skeleton ────────────────────────────────────────────────────
-function ImageWithSkeleton({ src, alt, sizes, skeletonClass = 'bg-zinc-700/60' }: { src: string; alt: string; sizes: string; skeletonClass?: string }) {
+function ImageWithSkeleton({
+  src,
+  alt,
+  sizes,
+  skeletonClass = "bg-zinc-700/60",
+}: {
+  src: string;
+  alt: string;
+  sizes: string;
+  skeletonClass?: string;
+}) {
   const [loaded, setLoaded] = useState(false);
   return (
     <>
-      {!loaded && <div className={`absolute inset-0 animate-pulse ${skeletonClass}`} />}
+      {!loaded && (
+        <div className={`absolute inset-0 animate-pulse ${skeletonClass}`} />
+      )}
       <Image
         src={src}
         alt={alt}
         fill
         sizes={sizes}
-        className={`object-cover transition-opacity duration-500 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+        className={`object-cover transition-opacity duration-500 ${loaded ? "opacity-100" : "opacity-0"}`}
         onLoad={() => setLoaded(true)}
       />
     </>
@@ -39,12 +58,14 @@ function ImageWithSkeleton({ src, alt, sizes, skeletonClass = 'bg-zinc-700/60' }
 function GameCard({ game, index }: { game: GameEntry; index: number }) {
   const gradient = GAME_GRADIENTS[index % GAME_GRADIENTS.length];
   return (
-    <div className="group flex-shrink-0" style={{ width: '130px' }}>
+    <div className="group flex-shrink-0" style={{ width: "130px" }}>
       <div
         className={`relative overflow-hidden rounded-xl bg-gradient-to-br ${gradient} shadow-md transition-all duration-300 group-hover:-translate-y-2.5 group-hover:shadow-xl group-hover:shadow-black/60`}
-        style={{ height: '160px' }}
+        style={{ height: "160px" }}
       >
-        {game.cover && <ImageWithSkeleton src={game.cover} alt={game.title} sizes="130px" />}
+        {game.cover && (
+          <ImageWithSkeleton src={game.cover} alt={game.title} sizes="130px" />
+        )}
       </div>
       <div className="mt-2 flex justify-center">
         <span className="rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-semibold text-zinc-300">
@@ -64,10 +85,10 @@ function TravelCard({ entry, index }: { entry: TravelEntry; index: number }) {
     <div
       className="flex-shrink-0"
       style={{
-        width: '160px',
-        transform: `rotate(${hovered ? 0 : baseRot}deg) translateY(${hovered ? '-10px' : '0'})`,
-        transition: 'transform 300ms ease',
-        transformOrigin: 'bottom center',
+        width: "160px",
+        transform: `rotate(${hovered ? 0 : baseRot}deg) translateY(${hovered ? "-10px" : "0"})`,
+        transition: "transform 300ms ease",
+        transformOrigin: "bottom center",
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -75,18 +96,31 @@ function TravelCard({ entry, index }: { entry: TravelEntry; index: number }) {
       {/* Polaroid body */}
       <div
         className="bg-white pb-9 pt-2.5 px-2.5 shadow-lg"
-        style={{ boxShadow: hovered ? '0 20px 40px rgba(0,0,0,0.5)' : '0 4px 16px rgba(0,0,0,0.3)' }}
+        style={{
+          boxShadow: hovered
+            ? "0 20px 40px rgba(0,0,0,0.5)"
+            : "0 4px 16px rgba(0,0,0,0.3)",
+        }}
       >
-        <div className="relative overflow-hidden" style={{ height: '130px' }}>
+        <div className="relative overflow-hidden" style={{ height: "130px" }}>
           {entry.image ? (
-            <ImageWithSkeleton src={entry.image} alt={entry.location} sizes="160px" skeletonClass="bg-zinc-200" />
+            <ImageWithSkeleton
+              src={entry.image}
+              alt={entry.location}
+              sizes="160px"
+              skeletonClass="bg-zinc-200"
+            />
           ) : (
             <div className="h-full bg-zinc-200" />
           )}
         </div>
         <div className="mt-2">
-          <p className="text-center text-[12px] font-medium tracking-tight text-zinc-700">{entry.location}</p>
-          <p className="mt-0.5 text-center text-[9px] font-bold uppercase tracking-widest text-zinc-400 opacity-60">{entry.caption}</p>
+          <p className="text-center text-[12px] font-medium tracking-tight text-zinc-700">
+            {entry.location}
+          </p>
+          <p className="mt-0.5 text-center text-[9px] font-bold uppercase tracking-widest text-zinc-400 opacity-60">
+            {entry.caption}
+          </p>
         </div>
       </div>
     </div>
@@ -98,7 +132,7 @@ function KeyboardCard({ kb }: { kb: KeyboardEntry }) {
   return (
     <div
       className="group relative flex-shrink-0 overflow-hidden rounded-xl border border-white/8 bg-zinc-900/60 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-white/15 hover:shadow-lg hover:shadow-black/40"
-      style={{ width: '260px', height: '170px' }}
+      style={{ width: "260px", height: "170px" }}
     >
       {kb.image ? (
         <>
@@ -128,9 +162,17 @@ function KeyboardCard({ kb }: { kb: KeyboardEntry }) {
 }
 
 // ── Shelf row ────────────────────────────────────────────────────────────────
-function ShelfRow({ label, children, extraPadY = 0 }: { label: string; children: React.ReactNode; extraPadY?: number }) {
+function ShelfRow({
+  label,
+  children,
+  extraPadY = 0,
+}: {
+  label: string;
+  children: React.ReactNode;
+  extraPadY?: number;
+}) {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [canLeft, setCanLeft]   = useState(false);
+  const [canLeft, setCanLeft] = useState(false);
   const [canRight, setCanRight] = useState(true);
 
   const updateFades = () => {
@@ -144,13 +186,13 @@ function ShelfRow({ label, children, extraPadY = 0 }: { label: string; children:
     updateFades();
     const id = setTimeout(updateFades, 120);
     return () => clearTimeout(id);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const maskImage = [
-    canLeft  ? 'transparent 0%, black 8%' : 'black 0%',
-    canRight ? 'black 92%, transparent 100%' : 'black 100%',
-  ].join(', ');
+    canLeft ? "transparent 0%, black 8%" : "black 0%",
+    canRight ? "black 92%, transparent 100%" : "black 100%",
+  ].join(", ");
 
   return (
     <div>
@@ -169,9 +211,7 @@ function ShelfRow({ label, children, extraPadY = 0 }: { label: string; children:
           maskImage: `linear-gradient(to right, ${maskImage})`,
         }}
       >
-        <div className="flex w-max gap-4 px-6">
-          {children}
-        </div>
+        <div className="flex w-max gap-4 px-6">{children}</div>
       </div>
 
       {/* Shelf edge */}
@@ -194,8 +234,8 @@ export function Hobbies() {
           className="mb-10 text-3xl font-bold tracking-tight text-zinc-100"
           style={{
             opacity: headingInView ? 1 : 0,
-            transform: headingInView ? 'translateY(0)' : 'translateY(14px)',
-            transition: 'opacity 500ms ease, transform 500ms ease',
+            transform: headingInView ? "translateY(0)" : "translateY(14px)",
+            transition: "opacity 500ms ease, transform 500ms ease",
           }}
         >
           Hobbies
@@ -206,8 +246,8 @@ export function Hobbies() {
           className="flex flex-col gap-10 rounded-2xl border border-white/6 bg-zinc-900/30 py-7"
           style={{
             opacity: contentInView ? 1 : 0,
-            transform: contentInView ? 'translateY(0)' : 'translateY(24px)',
-            transition: 'opacity 600ms ease 100ms, transform 600ms ease 100ms',
+            transform: contentInView ? "translateY(0)" : "translateY(24px)",
+            transition: "opacity 600ms ease 100ms, transform 600ms ease 100ms",
           }}
         >
           <ShelfRow label="Gaming" extraPadY={12}>
