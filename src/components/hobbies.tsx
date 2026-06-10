@@ -186,7 +186,6 @@ function ShelfRow({
     updateFades();
     const id = setTimeout(updateFades, 120);
     return () => clearTimeout(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const maskImage = [

@@ -89,7 +89,7 @@ function ProjectCard({
   const [imgErrored, setImgErrored] = useState(false);
   const [showHint, setShowHint] = useState(false);
   const backScrollRef = useRef<HTMLDivElement>(null);
-  const href = project.href || project.repo;
+  const href = project.href;
 
   const checkHint = useCallback(() => {
     const el = backScrollRef.current;

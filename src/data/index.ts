@@ -103,7 +103,7 @@ export const experiences: Experience[] = [
   {
     role: "Software Engineer",
     company: "Oneberry",
-    period: "Jan 2024 – May 20243",
+    period: "Jan 2024 – May 2024",
     logo: "/logos/logo_oneberry.jpg",
     flavour: "Developing client apps and chatbots for robot security systems.",
     description:
@@ -166,7 +166,6 @@ export type Project = {
   tags: string[];
   image?: string;
   href?: string;
-  repo?: string;
 };
 
 export const projects: Record<ProjectCategory, Project[]> = {
@@ -221,7 +220,7 @@ export const projects: Record<ProjectCategory, Project[]> = {
       image: "/projects/new.jpg",
       front: [
         "Acquiring new buyers is expensive, and losing them to friction before they complete their first purchase is worse.",
-        "Initiaves aim to tackle two key drop-off points in the new buyer funnel, improving guest (non-logged in) cart and no-address checkout.",
+        "Initiatives aim to tackle two key drop-off points in the new buyer funnel, improving guest (non-logged in) cart and no-address checkout.",
       ],
       back: {
         description: "Key features shipped:",
@@ -304,7 +303,7 @@ export const projects: Record<ProjectCategory, Project[]> = {
           "**Unified communication hub**: Aggregated Slack messages, Gmail threads, and Linear tickets into a single interface, giving engineers one place to triage instead of context-switching across tools",
           "**Event-driven resolver** : Actions taken across the three platforms generate raw events that are passed as input to an LLM resolver, which interprets context and determines the appropriate response",
           "**Agentic action**: The resolver is equipped with a set of tools, such as closing Linear tickets, drafting replies, or flagging messages, allowing it to take autonomous actions based on message content and user intent",
-          "**Noise reduction by design**: Rather than adding another dashboard to monitor, SeeDeek reduces the cognitive load on engineers by resolving low-complexity actions automatically, surfacing only what genuinely needs human attention",
+          "**Noise reduction by design**: Rather than adding another dashboard to monitor, SeepDeek reduces the cognitive load on engineers by resolving low-complexity actions automatically, surfacing only what genuinely needs human attention",
         ],
       },
       href: "https://github.com",
@@ -336,7 +335,7 @@ export const projects: Record<ProjectCategory, Project[]> = {
 
 // ─── Hobbies ──────────────────────────────────────────────────────────────────
 
-export type GameEntry = { title: string; cover?: string; platform?: string };
+export type GameEntry = { title: string; cover?: string };
 export type TravelEntry = { location: string; image?: string; caption: string };
 export type KeyboardEntry = {
   name: string;
@@ -351,15 +350,15 @@ export const hobbies: {
   keyboards: KeyboardEntry[];
 } = {
   gaming: [
-    { title: "Dota 2", platform: "PC", cover: "/gaming/dota2.jpg" },
-    { title: "Pokemon", platform: "Nintendo", cover: "/gaming/pokemon.jpg" },
-    { title: "Teamfight Tactics", platform: "PC", cover: "/gaming/tft.jpg" },
-    { title: "Final Fantasy", platform: "PS4/5", cover: "/gaming/ff7.png" },
-    { title: "HSR", platform: "Mobile", cover: "/gaming/hsr.png" },
-    { title: "God of War", platform: "PS4/5", cover: "/gaming/gow.jpg" },
-    { title: "Persona", platform: "PC", cover: "/gaming/persona.jpg" },
-    { title: "Spiderman", platform: "PS4/5", cover: "/gaming/spiderman.jpg" },
-    { title: "Elden Ring", platform: "PC", cover: "/gaming/eldenring.jpg" },
+    { title: "Dota 2", cover: "/gaming/dota2.jpg" },
+    { title: "Pokemon", cover: "/gaming/pokemon.jpg" },
+    { title: "Teamfight Tactics", cover: "/gaming/tft.jpg" },
+    { title: "Final Fantasy", cover: "/gaming/ff7.png" },
+    { title: "HSR", cover: "/gaming/hsr.png" },
+    { title: "God of War", cover: "/gaming/gow.jpg" },
+    { title: "Persona", cover: "/gaming/persona.jpg" },
+    { title: "Spiderman", cover: "/gaming/spiderman.jpg" },
+    { title: "Elden Ring", cover: "/gaming/eldenring.jpg" },
   ],
   travel: [
     {
