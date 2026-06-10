@@ -146,7 +146,7 @@ function ProjectCard({
               style={{ backfaceVisibility: "hidden" }}
             >
               <div
-                className={`relative h-44 sm:h-72 w-full flex-shrink-0 bg-gradient-to-br ${HEADER_GRADIENT[category]}`}
+                className={`relative h-44 sm:h-75 w-full flex-shrink-0 bg-gradient-to-br ${HEADER_GRADIENT[category]}`}
               >
                 {project.image && !imgErrored && (
                   <Image
@@ -336,6 +336,7 @@ function Carousel({ items }: { items: TaggedProject[] }) {
   }, [items.length]);
 
   useEffect(() => {
+    if (scrollRef.current) scrollRef.current.scrollLeft = 0;
     setTimeout(() => {
       setFlippedName(null);
       setActiveIndex(0);
