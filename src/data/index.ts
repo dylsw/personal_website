@@ -451,8 +451,9 @@ export const footer = {
 
 export const contact = {
   heading: "Let's connect.",
-  copy: "Open to new roles, collaborations, or just a good conversation. Reach out on LinkedIn or drop your details below and I'll get back to you.",
+  copy: [
+    "Open to new roles, collaborations, or just a good conversation.",
+    "The fastest way to reach me is on LinkedIn — I'll get back to you.",
+  ],
   linkedinCta: "Connect on LinkedIn",
-  dividerLabel: "or send me your details",
-  toastMessage: "Message sent — I'll be in touch!",
 };
