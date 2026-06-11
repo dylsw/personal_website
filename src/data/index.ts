@@ -20,17 +20,17 @@ export const personal = {
 // The strip duplicates the array automatically — just list each photo once.
 
 export const heroPhotos = [
-  { src: "/hero/brienz.jpg", alt: "Photo 5" },
-  { src: "/hero/kandersteg.jpg", alt: "Photo 1" },
-  { src: "/hero/grindelwald.jpg", alt: "Photo 2" },
-  { src: "/hero/oschinensee.jpg", alt: "Photo 3" },
-  { src: "/hero/zermatt.jpg", alt: "Photo 4" },
+  { src: "/hero/brienz.webp", alt: "Photo 5" },
+  { src: "/hero/kandersteg.webp", alt: "Photo 1" },
+  { src: "/hero/grindelwald.webp", alt: "Photo 2" },
+  { src: "/hero/oschinensee.webp", alt: "Photo 3" },
+  { src: "/hero/zermatt.webp", alt: "Photo 4" },
 ];
 
 // ─── About ────────────────────────────────────────────────────────────────────
 
 export const about = {
-  image: { src: "/about/first.jpg", alt: "Dylan" },
+  image: { src: "/about/first.webp", alt: "Dylan" },
   paragraphs: [
     "Turns out if you spend enough time in _engineering_, _data science_, and _analytics_, someone eventually hands you a product and says 'figure it out'. That someone was me, and I genuinely **love** the part of the job where you get to connect dots others haven't connected yet.",
     "Off the clock, I collect new experiences the same way. Usually by planning my next trip somewhere I've never been, eating something I can't pronounce, or convincing myself a new hobby is totally a good idea.",
@@ -172,7 +172,7 @@ export const projects: Record<ProjectCategory, Project[]> = {
   work: [
     {
       name: "Teleconsultation",
-      image: "/projects/tele.jpg",
+      image: "/projects/tele.webp",
       front: [
         "Regulatory non-compliance in Indonesia forced an overnight delisting of all medications on Shopee.",
         "Teleconsultation flow allowed buyers to connect with third-party teleconsultation providers, establishing a compliant doctor-to-prescription-to-fulfilment flow within the platform.",
@@ -199,7 +199,7 @@ export const projects: Record<ProjectCategory, Project[]> = {
     },
     {
       name: "Adjacent Market Expansion",
-      image: "/projects/adj.jpg",
+      image: "/projects/adj.webp",
       front: [
         "Four new SEA markets (Cambodia, Laos, Myanmar & Brunei), with each their own platform, required us to build localized buyer experiences from the ground up. Each market with its own regulatory, logistics, and payment requirements.",
       ],
@@ -292,7 +292,7 @@ export const projects: Record<ProjectCategory, Project[]> = {
   personal: [
     {
       name: "SeepDeek for StrAIght Up! Hackathon (First Place)",
-      image: "/projects/seepdeek.jpg",
+      image: "/projects/seepdeek.webp",
       front: [
         "Noise in high-impact engineering environments was the problem statement.",
         "SeepDeek is an AI-powered platform that aggregates communication channels and acts on them, not just reads them.",
@@ -312,7 +312,7 @@ export const projects: Record<ProjectCategory, Project[]> = {
     },
     {
       name: "Slack RAG Chatbot (Final Year Project)",
-      image: "/projects/fyp.jpg",
+      image: "/projects/fyp.webp",
       front: [
         "A 6-month final year project building an AI chatbot for IMDA Singapore's internal staff to query and navigate tech industry news.",
         "The chatbot was subsequently picked up and further developed by IMDA's internal engineering team after handoff.",
@@ -352,18 +352,18 @@ export const hobbies: {
   gaming: [
     { title: "Dota 2", cover: "/gaming/dota2.jpg" },
     { title: "Pokemon", cover: "/gaming/pokemon.jpg" },
-    { title: "Teamfight Tactics", cover: "/gaming/tft.jpg" },
-    { title: "Final Fantasy", cover: "/gaming/ff7.png" },
-    { title: "HSR", cover: "/gaming/hsr.png" },
+    { title: "Teamfight Tactics", cover: "/gaming/tft.webp" },
+    { title: "Final Fantasy", cover: "/gaming/ff7.webp" },
+    { title: "HSR", cover: "/gaming/hsr.webp" },
     { title: "God of War", cover: "/gaming/gow.jpg" },
-    { title: "Persona", cover: "/gaming/persona.jpg" },
-    { title: "Spiderman", cover: "/gaming/spiderman.jpg" },
-    { title: "Elden Ring", cover: "/gaming/eldenring.jpg" },
+    { title: "Persona", cover: "/gaming/persona.webp" },
+    { title: "Spiderman", cover: "/gaming/spiderman.webp" },
+    { title: "Elden Ring", cover: "/gaming/eldenring.webp" },
   ],
   travel: [
     {
       location: "Hokkaido",
-      image: "/travel/hokkaido.jpg",
+      image: "/travel/hokkaido.webp",
       caption: "jun '26",
     },
     {
@@ -398,7 +398,7 @@ export const hobbies: {
     },
     {
       location: "Busan",
-      image: "/travel/busan.jpg",
+      image: "/travel/busan.webp",
       caption: "jun '25",
     },
     {
@@ -412,19 +412,19 @@ export const hobbies: {
       name: "Glacier80",
       switches: "JWK Quartz",
       layout: "TKL",
-      image: "/keyboards/glacier.jpg",
+      image: "/keyboards/glacier.webp",
     },
     {
       name: "Frog by Geonworks",
       switches: "Cherry-Topped Meteor White",
       layout: "TKL",
-      image: "/keyboards/frog.jpg",
+      image: "/keyboards/frog.webp",
     },
     {
       name: "Mode Sonnet",
       switches: "Bolsa Zaku",
       layout: "75%",
-      image: "/keyboards/sonnet.jpg",
+      image: "/keyboards/sonnet.webp",
     },
     {
       name: "QwertyKeys65",
@@ -436,7 +436,7 @@ export const hobbies: {
       name: "Rainy75",
       switches: "HMX Violet",
       layout: "65%",
-      image: "/keyboards/rainy.jpg",
+      image: "/keyboards/rainy.webp",
     },
   ],
 };
