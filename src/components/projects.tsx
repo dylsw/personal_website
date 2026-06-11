@@ -114,8 +114,8 @@ function ProjectCard({
     }
   }, [flipped, checkHint]);
 
-  const faceBase = `absolute inset-0 overflow-hidden rounded-2xl border border-white/8 bg-zinc-900/55 backdrop-blur-md ${BORDER_ACCENT[category]}`;
-  const backFaceInner = `relative h-full overflow-hidden rounded-2xl border border-white/8 bg-zinc-900/55 backdrop-blur-md ${BORDER_ACCENT[category]} ${TOP_ACCENT[category]}`;
+  const faceBase = `absolute inset-0 overflow-hidden rounded-2xl border border-white/8 bg-zinc-900/75 ${BORDER_ACCENT[category]}`;
+  const backFaceInner = `relative h-full overflow-hidden rounded-2xl border border-white/8 bg-zinc-900/75 ${BORDER_ACCENT[category]} ${TOP_ACCENT[category]}`;
 
   return (
     <div

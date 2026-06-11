@@ -255,7 +255,7 @@ function CompanyCard({
         }`}
       />
 
-      <div className="overflow-hidden rounded-2xl border border-white/8 bg-zinc-900/55 backdrop-blur-md">
+      <div className="overflow-hidden rounded-2xl border border-white/8 bg-zinc-900/75">
         {/* Company header */}
         <div className="flex items-center gap-2.5 px-4 py-3">
           <CompanyLogo src={logo} name={company} />

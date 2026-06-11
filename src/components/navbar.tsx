@@ -112,7 +112,7 @@ export function Navbar() {
     >
       <div
         ref={navRef}
-        className={`relative flex w-full items-center gap-0 rounded-full border px-1.5 py-1 shadow-lg backdrop-blur-md transition-all duration-300 sm:gap-0.5 sm:px-2 sm:py-1.5 ${
+        className={`relative flex w-full items-center gap-0 rounded-full border px-1.5 py-1 shadow-lg backdrop-blur-sm transition-all duration-300 sm:gap-0.5 sm:px-2 sm:py-1.5 ${
           scrolled
             ? "border-white/10 bg-zinc-950/90 shadow-black/40"
             : "border-white/8 bg-zinc-950/70 shadow-black/30"

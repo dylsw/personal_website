@@ -25,7 +25,7 @@ export function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    <footer className="relative z-10 bg-zinc-950/90 py-10 backdrop-blur-md">
+    <footer className="relative z-10 bg-zinc-950 py-10">
       {/* Gradient accent border */}
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent" />
 
