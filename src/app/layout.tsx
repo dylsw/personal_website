@@ -12,8 +12,8 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Dylan Wo",
-  description: "Personal portfolio",
+  title: "Dylan Wo · PM",
+  description: "Dylan Wo — Product Manager passionate about bridging design and data.",
 };
 
 export default function RootLayout({
@@ -28,9 +28,7 @@ export default function RootLayout({
         <ParticleBackground />
 
         <Navbar />
-        <div className="relative z-10">
-          {children}
-        </div>
+        <div className="relative z-10">{children}</div>
       </body>
     </html>
   );
