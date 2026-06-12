@@ -12,8 +12,8 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Dylan Wo · PM",
-  description: "Dylan Wo — Product Manager passionate about bridging design and data.",
+  title: "dylsw.",
+  description: "Dylan's portfolio site",
 };
 
 export default function RootLayout({
