@@ -18,38 +18,23 @@ export function About() {
           {/* Outer div is the IntersectionObserver target — never clipped so observer fires correctly */}
           <div
             ref={imageRef as React.RefObject<HTMLDivElement>}
-            className="relative mx-auto hidden aspect-square w-4/5 md:block"
+            className="relative mx-auto hidden aspect-square w-4/5 overflow-hidden rounded-4xl md:block"
+            style={{
+              opacity: imageInView ? 1 : 0,
+              transform: imageInView ? "translateX(0)" : "translateX(-32px)",
+              transition: "opacity 700ms cubic-bezier(0.4, 0, 0.2, 1), transform 700ms cubic-bezier(0.4, 0, 0.2, 1)",
+            }}
           >
-            {/* Inner div carries the clip-path iris + border-radius */}
-            <div
-              className="absolute inset-0 overflow-hidden rounded-4xl"
-              style={{
-                clipPath: imageInView
-                  ? "circle(75% at 50% 50%)"
-                  : "circle(0% at 50% 50%)",
-                transition: imageInView
-                  ? "clip-path 800ms cubic-bezier(0.4, 0, 0.2, 1)"
-                  : "none",
+            <Image
+              src={about.image.src}
+              alt={about.image.alt}
+              fill
+              className="object-cover"
+              sizes="50vw"
+              onError={(e) => {
+                (e.currentTarget as HTMLImageElement).src = "/placeholder.png";
               }}
-            >
-              <Image
-                src={about.image.src}
-                alt={about.image.alt}
-                fill
-                className="object-cover"
-                sizes="50vw"
-                style={{
-                  transform: imageInView ? "scale(1)" : "scale(1.08)",
-                  transition: imageInView
-                    ? "transform 800ms cubic-bezier(0.4, 0, 0.2, 1)"
-                    : "none",
-                }}
-                onError={(e) => {
-                  (e.currentTarget as HTMLImageElement).src =
-                    "/placeholder.png";
-                }}
-              />
-            </div>
+            />
           </div>
 
           {/* Text */}

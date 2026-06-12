@@ -444,7 +444,7 @@ export const hobbies: {
 // ─── Footer ───────────────────────────────────────────────────────────────────
 
 export const footer = {
-  credit: "Vibe-coded with my bestie Claude ✦",
+  credit: "Special thanks to Claude ✦",
 };
 
 // ─── Contact ──────────────────────────────────────────────────────────────────

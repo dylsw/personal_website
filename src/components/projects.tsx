@@ -120,7 +120,7 @@ function ProjectCard({
   return (
     <div
       className="w-full"
-      style={{ padding: `${CLIP_PAD}px 0`, cursor: "pointer" }}
+      style={{ padding: `${CLIP_PAD}px 0`, cursor: "pointer", touchAction: flipped ? "auto" : "pan-y" }}
       onClick={onToggle}
     >
       {/* Scale wrapper — shrinks slightly while scrolling between cards */}
