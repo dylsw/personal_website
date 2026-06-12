@@ -120,7 +120,7 @@ function ProjectCard({
   return (
     <div
       className="w-full"
-      style={{ padding: `${CLIP_PAD}px 0`, cursor: "pointer", touchAction: flipped ? "auto" : "pan-y" }}
+      style={{ padding: `${CLIP_PAD}px 0`, cursor: "pointer" }}
       onClick={onToggle}
     >
       {/* Scale wrapper — shrinks slightly while scrolling between cards */}
@@ -389,7 +389,7 @@ function Carousel({ items }: { items: TaggedProject[] }) {
         ref={scrollRef}
         onScroll={handleScroll}
         className="flex overflow-x-auto [scroll-snap-type:x_mandatory] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        style={{ height: `${slotHeight}px` }}
+        style={{ height: `${slotHeight}px`, touchAction: flippedName ? "auto" : "pan-x" }}
       >
         {items.map(({ project, category }) => (
           <div
