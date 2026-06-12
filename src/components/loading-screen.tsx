@@ -2,21 +2,29 @@
 
 import { useState, useEffect } from "react";
 import { personal } from "@/data";
-import { introDone, markIntroDone } from "@/lib/intro-state";
+import { introDone, markIntroDone, resetIntroDone } from "@/lib/intro-state";
 
 export function LoadingScreen() {
   const [text, setText] = useState("");
   const [lifting, setLifting] = useState(false);
   const [gone, setGone] = useState(false);
+  const [animKey, setAnimKey] = useState(0);
+
+  // On bfcache restore, reset everything and replay the full intro
+  useEffect(() => {
+    const onPageShow = (e: PageTransitionEvent) => {
+      if (!e.persisted) return;
+      resetIntroDone();
+      setText("");
+      setLifting(false);
+      setGone(false);
+      setAnimKey((k) => k + 1);
+    };
+    window.addEventListener("pageshow", onPageShow);
+    return () => window.removeEventListener("pageshow", onPageShow);
+  }, []);
 
   useEffect(() => {
-    // Already played (bfcache restore) — skip immediately
-    if (introDone) {
-      window.dispatchEvent(new Event("intro-done"));
-      setTimeout(() => setGone(true), 0);
-      return;
-    }
-
     let i = 0;
     const name = personal.loading;
 
@@ -25,8 +33,6 @@ export function LoadingScreen() {
       setText(name.slice(0, i));
       if (i >= name.length) {
         clearInterval(typeId);
-
-        // Brief hold, then lift curtain + signal hero simultaneously
         setTimeout(() => {
           setLifting(true);
           markIntroDone();
@@ -37,7 +43,7 @@ export function LoadingScreen() {
     }, 65);
 
     return () => clearInterval(typeId);
-  }, []);
+  }, [animKey]);
 
   if (gone) return null;
 

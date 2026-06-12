@@ -373,10 +373,11 @@ function Carousel({ items }: { items: TaggedProject[] }) {
     const el = scrollRef.current;
     if (!el) return;
     setFlippedName(null);
-    el.scrollBy({
-      left: dir === "left" ? -el.clientWidth : el.clientWidth,
-      behavior: "smooth",
-    });
+    const current = Math.round(el.scrollLeft / el.clientWidth);
+    const next = dir === "left"
+      ? Math.max(0, current - 1)
+      : Math.min(items.length - 1, current + 1);
+    el.scrollTo({ left: next * el.clientWidth, behavior: "smooth" });
   };
 
   const slotHeight = CARD_HEIGHT + CLIP_PAD * 2;

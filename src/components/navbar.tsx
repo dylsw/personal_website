@@ -101,7 +101,7 @@ export function Navbar() {
 
   return (
     <div
-      className={`fixed left-1/2 z-50 w-[calc(100%-2rem)] max-w-fit transition-all duration-300 ease-out ${
+      className={`navbar fixed left-1/2 z-50 w-[calc(100%-2rem)] max-w-fit transition-all duration-300 ease-out ${
         scrolled ? "top-3" : "top-5"
       }`}
       style={{

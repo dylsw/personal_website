@@ -249,15 +249,15 @@ export function Hobbies() {
             transition: "opacity 600ms ease 100ms, transform 600ms ease 100ms",
           }}
         >
-          <ShelfRow label="Gaming" extraPadY={12}>
-            {hobbies.gaming.map((game, i) => (
-              <GameCard key={game.title} game={game} index={i} />
+          <ShelfRow label="Travels" extraPadY={14}>
+            {hobbies.travel.map((entry, i) => (
+              <TravelCard key={entry.location} entry={entry} index={i} />
             ))}
           </ShelfRow>
 
-          <ShelfRow label="Travel" extraPadY={14}>
-            {hobbies.travel.map((entry, i) => (
-              <TravelCard key={entry.location} entry={entry} index={i} />
+          <ShelfRow label="Gaming" extraPadY={12}>
+            {hobbies.gaming.map((game, i) => (
+              <GameCard key={game.title} game={game} index={i} />
             ))}
           </ShelfRow>
 

@@ -456,4 +456,8 @@ export const contact = {
     "The fastest way to reach me is on LinkedIn — I'll get back to you.",
   ],
   linkedinCta: "Connect on LinkedIn",
+  resume: {
+    path: "/resume_dylanwoqiying.pdf",
+    updated: "Jun 2026",
+  },
 };
