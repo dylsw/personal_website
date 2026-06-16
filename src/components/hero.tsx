@@ -106,7 +106,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="flex min-h-screen flex-col items-center justify-center gap-12 py-24"
+      className="flex min-h-svh flex-col items-center justify-center gap-12 py-24"
     >
       {/* Text */}
       <div className="flex max-w-xl flex-col items-center gap-3 px-6 text-center">
